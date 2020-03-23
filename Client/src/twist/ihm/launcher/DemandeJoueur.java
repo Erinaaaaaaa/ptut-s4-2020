@@ -1,9 +1,8 @@
-package twist.ihm.launcheur;
+package twist.ihm.launcher;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Toolkit;
 
 public class DemandeJoueur extends JDialog implements ActionListener
 {
