@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class DemandeJoueur extends JDialog implements ActionListener
+public class DialogInfoGenerale extends JDialog implements ActionListener
 {
 	private Launcheur ihm;
 	private SpinnerModel spinNbJoueur;
@@ -18,7 +18,7 @@ public class DemandeJoueur extends JDialog implements ActionListener
 	private JPanel panHaut, panBas;
 	private JButton buttonOk, buttonCancel;
 
-	public DemandeJoueur(Launcheur ihm)
+	public DialogInfoGenerale(Launcheur ihm)
 	{
 		this.setSize(320,135);
 		this.ihm = ihm;
@@ -72,7 +72,11 @@ public class DemandeJoueur extends JDialog implements ActionListener
 
 		if (e.getSource()==this.buttonOk){
 			this.dispose();
-			this.ihm.setNbJ(Integer.valueOf(this.spinnerJoueur.getValue().toString()));
+			this.ihm.setNbJoueur(Integer.valueOf(this.spinnerJoueur.getValue().toString()));
+			this.ihm.setNbLock  (Integer.valueOf(this.spinnerLock.getValue().toString()));
+			this.ihm.setNbCol   (Integer.valueOf(this.spinnerLigne.getValue().toString()));
+			this.ihm.setNbLgn   (Integer.valueOf(this.spinnerColone.getValue().toString()));
+			this.ihm.addDialogNomJoueur();
 		}
 	}
 }

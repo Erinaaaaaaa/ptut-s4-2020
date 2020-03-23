@@ -2,22 +2,16 @@ package twist;
 
 import twist.ihm.Fenetre;
 import twist.metier.Pont;
-import twist.ihm.launcher.*;
+import twist.ihm.launcher.Launcheur;
 
 public class ControleurGui implements Controleur
 {
     private Pont pont;
-    private Fenetre fenetre;
 
-    public ControleurGui()
-    {
-        this.pont = new Pont();
-        new Launcheur(this);
-        this.fenetre = new Fenetre(this);
-    }
+    public ControleurGui(){new Launcher(this);}
 
-    public static void main(String[] args)
-    {
-        new ControleurGui();
-    }
+		public void NouveauJeu(String[] tabNomJoueur,int nbLock,int nbCol,int nbLigne){
+			this.pont = new Pont(this, tabNomJoueur, nbLigne, nbCol, nbLock);
+		}
+    public static void main(String[] args){ new ControleurGui(); }
 }

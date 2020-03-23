@@ -5,13 +5,13 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class PanNomJoueur extends JDialog implements ActionListener
+public class DialogNomJoueur extends JDialog implements ActionListener
 {
 	private JTextField[] listJtf;
 	private JPanel panCentre,panBas;
 	private JButton buttonOk, buttonCancel;
 	private Launcheur ihm;
-	public PanNomJoueur(int taille, Launcheur ihm){
+	public DialogNomJoueur(int taille, Launcheur ihm){
 		this.ihm=ihm;
 		this.setSize(300,taille*50+20);
 		this.setUndecorated(true);

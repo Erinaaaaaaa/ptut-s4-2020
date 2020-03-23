@@ -2,24 +2,26 @@ package twist.ihm.launcher;
 
 import javax.swing.*;
 
-import twist.Controleur;
+import twist.ControleurGui;
 
 public class Launcheur extends JFrame
 {
 	private PanImage panelAccueil;
-	private DemandeJoueur panelDemandeJ;
-	private PanNomJoueur panNomsJ;
-	private Controleur ctrl;
+	private DialogInfoGenerale panelDemandeJ;
+	private DialogNomJoueur panNomsJ;
+	private ControleurGui ctrl;
 	private int nbJoueurs;
+	private int nbLock;
+	private int nbCol;
+	private int nbLigne;
 
-	public Launcheur(Controleur ctrl)
-	{
+	public Launcheur(ControleurGui ctrl){
 		this.ctrl = ctrl;
 		this.setSize(516,705);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.panelAccueil  = new PanImage(this);
-		this.panelDemandeJ = new DemandeJoueur(this);
+		this.panelDemandeJ = new DialogInfoGenerale(this);
 		this.setContentPane(this.panelAccueil);
 
 		this.setVisible(true);
@@ -33,15 +35,15 @@ public class Launcheur extends JFrame
 		this.panelDemandeJ.setVisible(true);
 	}
 
-	public void setNbJ(int i)
-	{
-		this.nbJoueurs=i;
-		this.panNomsJ = new PanNomJoueur(this.nbJoueurs,this);
-	}
+	public void setNbJoueur(int nbJ){ this.nbJoueurs=nbJ; }
+	public void setNbLock  (int nbL){ this.nbLock=nbL;    }
+	public void setNbCol   (int nbC){ this.nbCol=nbC;     }
+	public void setNbLgn   (int nbL){ this.nbLigne=nbL;   }
 
-	public void debuterPartie(String[] tabNomJoueur)
-	{
-		//this.ctrl.nouveauplateau(tabNomJoueur);
+	public void addDialogNomJoueur(){this.panNomsJ = new DialogNomJoueur(this.nbJoueurs,this);}
+
+	public void debuterPartie(String[] tabNomJoueur){
+		this.ctrl.NouveauJeu(tabNomJoueur,this.nbLock,this.nbCol,this.nbLigne);
 		this.dispose();
 	}
 

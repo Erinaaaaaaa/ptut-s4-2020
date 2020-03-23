@@ -15,4 +15,4 @@ XCOPY /E /EXCLUDE:exclude.tmp src out
 del compile.list
 del exclude.tmp
 
-java -cp ./out twist.Controleur
+java -cp ./out twist.ControleurGui
