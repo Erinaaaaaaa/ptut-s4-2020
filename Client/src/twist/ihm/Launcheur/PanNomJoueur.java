@@ -1,4 +1,4 @@
-package twist.ihm.Launcheur;
+package twist.ihm.launcheur;
 
 import java.awt.*;
 import java.awt.font.*;
@@ -12,8 +12,8 @@ public class PanNomJoueur extends JDialog implements ActionListener
 	private JTextField[] listJtf;
 	private JPanel panCentre,panBas;
 	private JButton bOk, bCancel;
-	private IHMGUI ihm;
-	public PanNomJoueur(int taille, IHMGUI ihm){
+	private Launcheur ihm;
+	public PanNomJoueur(int taille, Launcheur ihm){
 		this.ihm=ihm;
 		this.setSize(300,taille*50+20);
 		this.setUndecorated(true);
@@ -31,7 +31,6 @@ public class PanNomJoueur extends JDialog implements ActionListener
 		for (int j=0; j<this.listJtf.length; j++)
 		{
 			JLabel lbl = new JLabel("Joueur "+(j+1)+" : ",JLabel.RIGHT);
-			Apparence.setStyleLbl(lbl);
 			this.panCentre.add(lbl);
 			this.panCentre.add(this.listJtf[j]);
 		}
@@ -44,8 +43,6 @@ public class PanNomJoueur extends JDialog implements ActionListener
 		this.panBas.setLayout(new GridLayout(1,2));
 		this.panBas.add(this.bOk);
 		this.panBas.add(this.bCancel);
-		Apparence.setStyleBtnAction(this.bOk);
-		Apparence.setStyleBtnAction(this.bCancel);
 
 		this.add(this.panCentre, BorderLayout.CENTER);
 		this.add(this.panBas, BorderLayout.SOUTH);

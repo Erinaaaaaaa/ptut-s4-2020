@@ -1,4 +1,4 @@
-package twist.ihm.Launcheur;
+package twist.ihm.launcheur;
 
 import java.awt.*;
 import javax.swing.*;
@@ -7,13 +7,13 @@ import java.awt.Toolkit;
 
 public class DemandeJoueur extends JDialog implements ActionListener
 {
-	private IHMGUI ihm;
+	private Launcheur ihm;
 	private SpinnerModel spinNbJ;
 	private JSpinner spinner;
 	private JPanel panHaut, panBas;
 	private JButton bOk, bCancel;
 
-	public DemandeJoueur(IHMGUI ihm)
+	public DemandeJoueur(Launcheur ihm)
 	{
 		this.setSize(320,50);
 		this.ihm = ihm;
@@ -35,14 +35,12 @@ public class DemandeJoueur extends JDialog implements ActionListener
 		this.panBas.setLayout(new GridLayout(1,2));
 
 		JLabel lbl = new JLabel("Nombre de joueurs : ");
-		Apparence.setStyleLbl(lbl);
 		this.panHaut.add(lbl);
 		this.panHaut.add(this.spinner);
 
 		this.panBas.add(this.bOk);
 		this.panBas.add(this.bCancel);
-		Apparence.setStyleBtnAction(this.bOk);
-		Apparence.setStyleBtnAction(this.bCancel);
+
 
 		this.add(this.panHaut,BorderLayout.NORTH);
 		this.add(this.panBas,BorderLayout.SOUTH);

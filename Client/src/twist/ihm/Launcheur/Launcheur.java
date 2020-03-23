@@ -1,4 +1,4 @@
-package twist.ihm.Launcheur;
+package twist.ihm.launcheur;
 
 import java.awt.*;
 import javax.swing.*;
@@ -6,14 +6,12 @@ import java.awt.font.*;
 import java.io.*;
 
 import twist.Controleur;
-import Ihm.*;
-
 
 public class Launcheur extends JFrame
 {
 	private PanImage panelAccueil;
 	private DemandeJoueur panelDemandeJ;
-	private PanNomJoueurs panNomsJ;
+	private PanNomJoueur panNomsJ;
 	private Controleur ctrl;
 	private int nbJoueurs;
 
@@ -41,7 +39,7 @@ public class Launcheur extends JFrame
 	public void setNbJ(int i)
 	{
 		this.nbJoueurs=i;
-		this.panNomsJ = new PanNomJoueurs(this.nbJoueurs,this);
+		this.panNomsJ = new PanNomJoueur(this.nbJoueurs,this);
 	}
 
 	public void debuterPartie(String[] tabNomJoueur)

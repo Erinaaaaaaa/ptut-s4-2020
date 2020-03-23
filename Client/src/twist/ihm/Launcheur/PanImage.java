@@ -1,5 +1,4 @@
-package twist.ihm.Launcheur;
-import Ihm.*;
+package twist.ihm.launcheur;
 
 import java.awt.*;
 import java.awt.font.*;
@@ -12,9 +11,9 @@ import javax.swing.*;
 public class PanImage extends JPanel implements ActionListener{
 
 	private JButton bLancerPartie;
-	private IHMGUI ctrl;
+	private Launcheur ctrl;
 
-	public PanImage(IHMGUI ctrl){
+	public PanImage(Launcheur ctrl){
 		this.ctrl = ctrl;
 
 		SpringLayout sl_panel = new SpringLayout();
@@ -30,14 +29,11 @@ public class PanImage extends JPanel implements ActionListener{
 
 		this.bLancerPartie = new JButton("Jouer");
 		this.bLancerPartie.addActionListener(this);
-		Apparence.setStyleBtnPrincipale(this.bLancerPartie);
 		sl_panel.putConstraint(SpringLayout.NORTH, this.bLancerPartie, 0, SpringLayout.SOUTH, lblCreation);
 		sl_panel.putConstraint(SpringLayout.WEST, this.bLancerPartie, 66, SpringLayout.WEST, this);
 		sl_panel.putConstraint(SpringLayout.SOUTH, this.bLancerPartie, -250, SpringLayout.SOUTH, this);
 		sl_panel.putConstraint(SpringLayout.EAST, this.bLancerPartie, -72, SpringLayout.EAST, this);
 		this.add(this.bLancerPartie);
-
-		Apparence.setFond(this);
 	}
 
 	public void actionPerformed(ActionEvent e){
