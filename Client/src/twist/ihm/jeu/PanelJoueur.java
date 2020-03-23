@@ -21,6 +21,6 @@ public class PanelJoueur extends JPanel{
 		else           {this.setLayout(new GridLayout(2,1));}
 
 		this.add(this.imageJoueur);
-		this.add(new JLabel(this.ctrl.getJoueur(idJoeur).getNom()));
+		this.add(new JLabel("TEST ! "));
 	}
 }

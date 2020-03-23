@@ -23,53 +23,70 @@ public class ControleurGui implements Controleur
         this.plateau = new IhmPlateau(this);
     }
 
-		public Conteneur[][] getConteneurs(){
-        return pont.getPlateau();
-    }
-
-		@Override
-    public int getLargeurPont(){
-        return this.pont.getLargeur();
+    public static void main(String[] args)
+    {
+        new ControleurGui();
     }
 
     @Override
-    public int getHauteurPont(){
-        return this.pont.getHauteur();
+    public Conteneur[][] getConteneurs()
+    {
+        // TODO
+        return null;
     }
 
     @Override
-    public int getNbJoueur(){
-        return this.pont.getNbJoueur();
+    public int getLargeurPont()
+    {
+        // TODO
+        return 0;
     }
 
     @Override
-    public Joueur getJoueur(int i){
-        return this.pont.getJoueur(i);
+    public int getHauteurPont()
+    {
+        // TODO
+        return 0;
     }
 
     @Override
-    public int getScoreJoueur(int i){
-        return this.pont.getScoreJoueur(i);
+    public int getNbJoueur()
+    {
+        // TODO
+        return 0;
     }
 
     @Override
-    public int getNumeroJoueur(Joueur joueur){
-        return this.pont.getNumeroJoueur(joueur);
+    public Joueur getJoueur(int i)
+    {
+        // TODO
+        return null;
     }
 
     @Override
-    public boolean partieTerminee(){
-        return pont.partieTerminee();
+    public int getScoreJoueur(int i)
+    {
+        // TODO
+        return 0;
+    }
+
+    @Override
+    public int getNumeroJoueur(Joueur joueur)
+    {
+        // TODO
+        return 0;
+    }
+
+    @Override
+    public boolean partieTerminee()
+    {
+        // TODO
+        return false;
     }
 
     @Override
     public void jouer(int x, int y, int coin)
     {
-        pont.placerLock(x, y, coin);
-    }
 
-    public static void main(String[] args)
-    {
-        new ControleurGui();
     }
 }

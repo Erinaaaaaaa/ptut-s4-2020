@@ -21,7 +21,6 @@ public class IhmPlateau extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-
 		this.setVisible(true);
 	}
 }
