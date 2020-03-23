@@ -33,15 +33,13 @@ public class Conteneur
     public Lock[] getLocks() {return locks;}
 
     /**
-     * Définit le voisin 
-     * @param i
-     * @param voisin
+     * Définit le voisin à la position par i.
+     * @param i Position du voisin
+     * @param voisin Voisin
      */
     public void setVoisin(int i, Conteneur voisin)
     {
-        if (this.voisins[i] != null) return;
-
-        this.voisins[i]
+        this.voisins[i] = voisin;
     }
 
     public Conteneur getVoisin(int i) {return this.voisins[i];}
