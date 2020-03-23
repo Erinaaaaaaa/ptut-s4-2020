@@ -9,7 +9,7 @@ public class PanNomJoueur extends JDialog implements ActionListener
 {
 	private JTextField[] listJtf;
 	private JPanel panCentre,panBas;
-	private JButton bOk, bCancel;
+	private JButton buttonOk, buttonCancel;
 	private Launcheur ihm;
 	public PanNomJoueur(int taille, Launcheur ihm){
 		this.ihm=ihm;
@@ -33,14 +33,14 @@ public class PanNomJoueur extends JDialog implements ActionListener
 			this.panCentre.add(this.listJtf[j]);
 		}
 
-		this.bOk=new JButton("Valider");
-		this.bOk.addActionListener(this);
-		this.bCancel=new JButton("Quitter");
-		this.bCancel.addActionListener(this);
+		this.buttonOk=new JButton("Valider");
+		this.buttonOk.addActionListener(this);
+		this.buttonCancel=new JButton("Quitter");
+		this.buttonCancel.addActionListener(this);
 
 		this.panBas.setLayout(new GridLayout(1,2));
-		this.panBas.add(this.bOk);
-		this.panBas.add(this.bCancel);
+		this.panBas.add(this.buttonOk);
+		this.panBas.add(this.buttonCancel);
 
 		this.add(this.panCentre, BorderLayout.CENTER);
 		this.add(this.panBas, BorderLayout.SOUTH);
@@ -50,8 +50,8 @@ public class PanNomJoueur extends JDialog implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource()==this.bCancel) this.dispose();
-		if (e.getSource()==this.bOk)
+		if (e.getSource()==this.buttonCancel) this.dispose();
+		if (e.getSource()==this.buttonOk)
 		{
 			String message = "Veuillez remplir correctement le champ : ";
 			Boolean correcte = true;
