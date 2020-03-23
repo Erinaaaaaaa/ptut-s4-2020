@@ -34,34 +34,12 @@ public class Apparence
 		btn.setFont(new Font("Helvetica", Font.BOLD, 15));
 	}
 
-	public static void setStyleLbl(JLabel lbl)
+	public static void setStyleLbl(JLabel lbl, Color coulJ)
 	{
 		lbl.setFont(new Font("Helvetica", Font.BOLD, 15));
-		lbl.setForeground(new Color(235, 235, 235));
+		lbl.setForeground(coulJ);
 	}
 
 	public static Color  getJoueurCouleur(int id) {return TABCOUL[id];}
 
-	public static JLabel getJoueurImage  (int id) {
-		String imageJoueur ="/twist/ihm/img/joueur";
-		switch (id) {
-			case 0 : imageJoueur += "R.png";break;
-			case 1 : imageJoueur += "G.png";break;
-			case 2 : imageJoueur += "B.png";break;
-			case 3 : imageJoueur += "Y.png";break;
-		}
-		JLabel jLRetour = new JLabel(new ImageIcon(loadImage(imageJoueur)));
-		return jLRetour;
-	}
-
-	private static Image loadImage(final String string) {
-		try {
-				final Image bi = ImageIO.read(MethodHandles.lookup().lookupClass().getResourceAsStream(string));
-				return bi;
-		}
-		catch (IOException e) {
-				e.printStackTrace();
-				return null;
-		}
-}
 }

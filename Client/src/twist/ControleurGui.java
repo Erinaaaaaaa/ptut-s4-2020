@@ -28,65 +28,56 @@ public class ControleurGui implements Controleur
         new ControleurGui();
     }
 
-    @Override
-    public Conteneur[][] getConteneurs()
+		public Conteneur[][] getConteneurs()
     {
-        // TODO
-        return null;
+        return pont.getPlateau();
     }
 
     @Override
     public int getLargeurPont()
     {
-        // TODO
-        return 0;
+        return this.pont.getLargeur();
     }
 
     @Override
     public int getHauteurPont()
     {
-        // TODO
-        return 0;
+        return this.pont.getHauteur();
     }
 
     @Override
     public int getNbJoueur()
     {
-        // TODO
-        return 0;
+        return this.pont.getNbJoueur();
     }
 
     @Override
     public Joueur getJoueur(int i)
     {
-        // TODO
         return this.pont.getJoueur(i);
     }
 
     @Override
     public int getScoreJoueur(int i)
     {
-        // TODO
-        return 0;
+        return this.pont.getScoreJoueur(i);
     }
 
     @Override
     public int getNumeroJoueur(Joueur joueur)
     {
-        // TODO
-        return 0;
+        return this.pont.getNumeroJoueur(joueur);
     }
 
     @Override
     public boolean partieTerminee()
     {
-        // TODO
-        return false;
+        return pont.partieTerminee();
     }
 
     @Override
     public void jouer(int x, int y, int coin)
     {
-
+        pont.placerLock(x, y, coin);
     }
 }

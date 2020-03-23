@@ -19,7 +19,7 @@ public class DialogNomJoueur extends JDialog implements ActionListener
 		this.setModal(true);
 		this.listJtf = new JTextField[taille];
 		for (int i=0; i<this.listJtf.length; i++)
-			this.listJtf[i]=new JTextField();
+			this.listJtf[i]=new JTextField("Joueur "+(i+1));
 
 		this.panCentre=new JPanel();
 		this.panBas=new JPanel();
