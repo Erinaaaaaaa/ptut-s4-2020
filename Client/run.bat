@@ -2,9 +2,11 @@
 
 echo .java > exclude.tmp
 
+del /s /q out
+rmdir /s /q out
 mkdir out
 
-dir /s/b *.java > compile.list
+powershell (gci -Path src -Recurse *.java^|Resolve-Path -Relative) > compile.list
 
 javac -encoding utf-8 -d out @compile.list
 
