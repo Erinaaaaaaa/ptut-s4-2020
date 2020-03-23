@@ -10,7 +10,7 @@ public class Controleur
     public Controleur()
     {
         this.pont = new Pont();
-        new Launcher(this);
+        new Launcheur(this);
     }
 
     public static void main(String[] args)
