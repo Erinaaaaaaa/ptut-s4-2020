@@ -55,8 +55,7 @@ public class PanNomJoueur extends JDialog implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource()==this.bCancel)
-			this.dispose();
+		if (e.getSource()==this.bCancel) this.dispose();
 		if (e.getSource()==this.bOk)
 		{
 			String message = "Veuillez remplir correctement le champ : ";
