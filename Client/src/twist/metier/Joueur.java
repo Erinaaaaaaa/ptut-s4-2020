@@ -13,4 +13,9 @@ public class Joueur
 
     public String getNom() { return nom; }
     public int getNbLocks() { return this.nbLocks; }
+
+    public void utiliserLock()
+    {
+        this.nbLocks--;
+    }
 }

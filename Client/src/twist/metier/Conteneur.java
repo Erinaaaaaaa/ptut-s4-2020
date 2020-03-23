@@ -3,14 +3,14 @@ package twist.metier;
 public class Conteneur
 {
     // Position des conteneurs voisins
-    public static final int C_N  = 0;
-    public static final int C_NE = 1;
-    public static final int C_E  = 2;
-    public static final int C_SE = 3;
-    public static final int C_S  = 4;
-    public static final int C_SO = 5;
-    public static final int C_W  = 6;
-    public static final int C_NO = 7;
+    public static final int C_NO = 0;
+    public static final int C_N  = 1;
+    public static final int C_NE = 2;
+    public static final int C_E  = 3;
+    public static final int C_SE = 4;
+    public static final int C_S  = 5;
+    public static final int C_SO = 6;
+    public static final int C_O  = 7;
 
     private Lock[] locks;
 
@@ -25,8 +25,60 @@ public class Conteneur
         this.voisins = new Conteneur[8];
     }
 
-    public boolean placerLock(int coin)
+    /*
+     * Positions des locks:
+     *        0 ----- 1
+     *        |       |
+     *        3 ----- 2
+     */
+    public boolean jouerLock(int coin, Lock lock)
     {
+        // Valeur attendue: 0-3
+        if (!putLockReference(coin, lock))
+            return false;
+
+        switch (coin)
+        {
+            case 0:
+                {
+                    if(voisins[C_O]  != null) voisins[C_O] .putLockReference(1, lock);
+                    if(voisins[C_NO] != null) voisins[C_NO].putLockReference(2, lock);
+                    if(voisins[C_N]  != null) voisins[C_N] .putLockReference( 3, lock);
+                }
+                break;
+            case 1:
+                {
+                    if(voisins[C_N]  != null) voisins[C_N] .putLockReference(2, lock);
+                    if(voisins[C_NE] != null) voisins[C_NE].putLockReference(3, lock);
+                    if(voisins[C_E]  != null) voisins[C_E] .putLockReference( 0, lock);
+                }
+                break;
+            case 2:
+                {
+                    if(voisins[C_E]  != null) voisins[C_E] .putLockReference(3, lock);
+                    if(voisins[C_SE] != null) voisins[C_SE].putLockReference(0, lock);
+                    if(voisins[C_S]  != null) voisins[C_S] .putLockReference( 1, lock);
+                }
+                break;
+            case 3:
+                {
+                    if(voisins[C_S]  != null) voisins[C_S] .putLockReference(0, lock);
+                    if(voisins[C_SO] != null) voisins[C_SO].putLockReference(1, lock);
+                    if(voisins[C_O]  != null) voisins[C_O] .putLockReference( 2, lock);
+                }
+                break;
+            default: return false;
+        }
+
+        return true;
+    }
+
+    private boolean putLockReference(int coin, Lock lock)
+    {
+        if (this.locks[coin] != null)
+            return false;
+
+        this.locks[coin] = lock;
         return true;
     }
 
