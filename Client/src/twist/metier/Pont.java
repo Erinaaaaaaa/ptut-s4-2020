@@ -28,6 +28,7 @@ public class Pont
                 this.conteneurs[i][j] = new Conteneur();
 
         // TODO: définition des voisins
+
     }
 
     public Conteneur[][] getPlateau()

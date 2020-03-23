@@ -1,4 +1,4 @@
-package twist.Controleur;
+package twist;
 
 import twist.metier.Pont;
 public class Controleur {
