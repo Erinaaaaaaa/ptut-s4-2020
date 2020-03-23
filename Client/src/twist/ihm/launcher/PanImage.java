@@ -1,10 +1,9 @@
-package twist.ihm.launcheur;
+package twist.ihm.launcher;
 
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.event.*;
 import java.util.*;
-import java.io.*;
 
 import javax.swing.*;
 

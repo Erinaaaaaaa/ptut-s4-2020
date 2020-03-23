@@ -1,7 +1,7 @@
 package twist;
 
 import twist.metier.Pont;
-import twist.ihm.launcheur.*;
+import twist.ihm.launcher.*;
 public class Controleur {
 	public Controleur(){
 		new Pont();
