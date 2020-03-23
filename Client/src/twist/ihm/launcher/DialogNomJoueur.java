@@ -10,8 +10,8 @@ public class DialogNomJoueur extends JDialog implements ActionListener
 	private JTextField[] listJtf;
 	private JPanel panCentre,panBas;
 	private JButton buttonOk, buttonCancel;
-	private Launcheur ihm;
-	public DialogNomJoueur(int taille, Launcheur ihm){
+	private Launcher ihm;
+	public DialogNomJoueur(int taille, Launcher ihm){
 		this.ihm=ihm;
 		this.setSize(300,taille*50+20);
 		this.setUndecorated(true);

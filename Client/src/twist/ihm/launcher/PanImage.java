@@ -10,9 +10,9 @@ import javax.swing.*;
 public class PanImage extends JPanel implements ActionListener{
 
 	private JButton bLancerPartie;
-	private Launcheur ctrl;
+	private Launcher ctrl;
 
-	public PanImage(Launcheur ctrl){
+	public PanImage(Launcher ctrl){
 		this.ctrl = ctrl;
 
 		SpringLayout sl_panel = new SpringLayout();

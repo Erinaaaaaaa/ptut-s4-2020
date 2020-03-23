@@ -4,8 +4,7 @@ import javax.swing.*;
 
 import twist.ControleurGui;
 
-public class Launcheur extends JFrame
-{
+public class Launcher extends JFrame{
 	private PanImage panelAccueil;
 	private DialogInfoGenerale panelDemandeJ;
 	private DialogNomJoueur panNomsJ;
@@ -15,7 +14,7 @@ public class Launcheur extends JFrame
 	private int nbCol;
 	private int nbLigne;
 
-	public Launcheur(ControleurGui ctrl){
+	public Launcher(ControleurGui ctrl){
 		this.ctrl = ctrl;
 		this.setSize(516,705);
 		this.setLocationRelativeTo(null);

@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class DialogInfoGenerale extends JDialog implements ActionListener
 {
-	private Launcheur ihm;
+	private Launcher ihm;
 	private SpinnerModel spinNbJoueur;
 	private SpinnerModel spinNbLock;
 	private SpinnerModel spinNbLigne;
@@ -18,8 +18,7 @@ public class DialogInfoGenerale extends JDialog implements ActionListener
 	private JPanel panHaut, panBas;
 	private JButton buttonOk, buttonCancel;
 
-	public DialogInfoGenerale(Launcheur ihm)
-	{
+	public DialogInfoGenerale(Launcher ihm){
 		this.setSize(320,135);
 		this.ihm = ihm;
 		this.setLocationRelativeTo(this.ihm);
