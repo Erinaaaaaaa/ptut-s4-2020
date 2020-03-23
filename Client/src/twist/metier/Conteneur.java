@@ -22,6 +22,7 @@ public class Conteneur
     {
         this.valeur = (int) (Math.random() * 50 + 5);
         this.locks = new Lock[4];
+        this.voisins = new Conteneur[8];
     }
 
     public boolean placerLock(int coin)
