@@ -1,5 +1,8 @@
 package twist.metier;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Conteneur
 {
     // Position des conteneurs voisins
@@ -80,6 +83,41 @@ public class Conteneur
 
         this.locks[coin] = lock;
         return true;
+    }
+
+    public Joueur joueurMajoritaire()
+    {
+        HashMap<Joueur, Integer> possessions = new HashMap<>();
+
+        for (Lock l : locks)
+        {
+            if (l == null) continue;
+
+            Joueur j = l.getJoueur();
+
+            if (possessions.containsKey(j))
+                possessions.replace(j, possessions.get(j)+1);
+            else
+                possessions.put(j, 1);
+        }
+
+        Joueur best = null;
+        int nb = 0;
+
+        for (Map.Entry<Joueur, Integer> pair : possessions.entrySet())
+        {
+            if (pair.getValue() > nb)
+            {
+                best = pair.getKey();
+                nb = pair.getValue();
+            }
+            else if (pair.getValue() == nb)
+            {
+                best = null;
+            }
+        }
+
+        return best;
     }
 
     public Lock getLock(int i) {return this.locks[i];}

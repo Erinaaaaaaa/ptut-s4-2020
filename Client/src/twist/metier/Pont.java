@@ -123,7 +123,19 @@ public class Pont
 
     public int getScoreJoueur(int i)
     {
-        return 69;
+        int score = 0;
+        Joueur j = this.joueurs[i];
+
+        for (int x = 0; x < largeur; x++)
+        for (int y = 0; y < hauteur; y++)
+        {
+            Conteneur c = this.conteneurs[x][y];
+
+            if (c.joueurMajoritaire() == j)
+                score += c.getValeur();
+        }
+
+        return score;
     }
 
     public int getNumeroJoueur(Joueur j)
