@@ -12,15 +12,16 @@ public class PanelJoueur extends JPanel{
 	private int numeroJoueur;
 	private JLabel imageJoueur;
 
-	public PanelJoueur(ControleurGui ctrl,int idJoeur,Boolean verticale){
+	public PanelJoueur(ControleurGui ctrl,int idJoueur,Boolean verticale){
 		this.ctrl = ctrl;
-		this.numeroJoueur = idJoeur;
-		this.coulJoueur  = Apparence.getJoueurCouleur(idJoeur);
-		this.imageJoueur = Apparence.getJoueurImage(idJoeur);
+		this.numeroJoueur = idJoueur;
+		this.coulJoueur  = Apparence.getJoueurCouleur(idJoueur);
+		this.imageJoueur = Apparence.getJoueurImage(idJoueur);
 		if (verticale) {this.setLayout(new GridLayout(2,1));}
-		else           {this.setLayout(new GridLayout(2,1));}
+		else           {this.setLayout(new GridLayout(1,2));}
 
+		System.out.println(this.imageJoueur);
 		this.add(this.imageJoueur);
-		this.add(new JLabel("TEST ! "));
+		this.add(new JLabel(this.ctrl.getJoueur(idJoueur).getNom()));
 	}
 }

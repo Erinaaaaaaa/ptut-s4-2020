@@ -60,7 +60,7 @@ public class ControleurGui implements Controleur
     public Joueur getJoueur(int i)
     {
         // TODO
-        return null;
+        return this.pont.getJoueur(i);
     }
 
     @Override

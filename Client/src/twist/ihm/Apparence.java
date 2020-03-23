@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.font.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 import javax.swing.*;
 
@@ -40,13 +43,25 @@ public class Apparence
 	public static Color  getJoueurCouleur(int id) {return TABCOUL[id];}
 
 	public static JLabel getJoueurImage  (int id) {
-		JLabel jLRetour = new JLabel();
+		String imageJoueur ="/twist/ihm/img/joueur";
 		switch (id) {
-			case 0 : jLRetour = new JLabel(new ImageIcon("ihm/img/joueurR.png"));break;
-			case 1 : jLRetour = new JLabel(new ImageIcon("ihm/img/joueurG.png"));break;
-			case 2 : jLRetour = new JLabel(new ImageIcon("ihm/img/joueurB.png"));break;
-			case 3 : jLRetour = new JLabel(new ImageIcon("ihm/img/joueurY.png"));break;
+			case 0 : imageJoueur += "R.png";break;
+			case 1 : imageJoueur += "G.png";break;
+			case 2 : imageJoueur += "B.png";break;
+			case 3 : imageJoueur += "Y.png";break;
 		}
+		JLabel jLRetour = new JLabel(new ImageIcon(loadImage(imageJoueur)));
 		return jLRetour;
 	}
+
+	private static Image loadImage(final String string) {
+		try {
+				final Image bi = ImageIO.read(MethodHandles.lookup().lookupClass().getResourceAsStream(string));
+				return bi;
+		}
+		catch (IOException e) {
+				e.printStackTrace();
+				return null;
+		}
+}
 }
