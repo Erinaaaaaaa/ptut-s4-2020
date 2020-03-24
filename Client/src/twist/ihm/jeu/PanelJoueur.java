@@ -20,20 +20,21 @@ public class PanelJoueur extends JPanel{
 		this.ctrl = ctrl;
 		this.numeroJoueur = idJoueur;
 		this.coulJoueur   = Apparence.getJoueurCouleur(idJoueur);
-			Apparence.setBackgroundPanelJoueur(this,this.ctrl.getJoueurActif());
+		Apparence.setBackgroundPanelJoueur(this,this.ctrl.getJoueurActif());
+		
 		// Logo
-		/*ImageIcon icon;
+		ImageIcon icon;
 		try {
-			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("..\\twist\\ihm\\img\\joueur" + idJoueur + ".png")));
+			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (idJoueur+1) + ".png")));
 		} catch (IOException e) {
-		e.printStackTrace();
-		return;
-	}
-		this.imageJoueur  = new JLabel(icon);*/
+			e.printStackTrace();
+			return;
+		}
+		this.imageJoueur  = new JLabel(icon);
 		if (verticale) {this.setLayout(new GridLayout(1,2));}
 		else           {this.setLayout(new GridLayout(2,1));}
 
-		//this.add(this.imageJoueur);
+		this.add(this.imageJoueur);
 		this.infoJoueur = new JLabel(setInfoJoueur());
 		Apparence.setStyleLbl(this.infoJoueur,coulJoueur);
 		this.add(this.infoJoueur);
