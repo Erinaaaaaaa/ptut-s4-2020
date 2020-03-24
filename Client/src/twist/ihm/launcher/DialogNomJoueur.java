@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-
+import twist.ihm.Apparence;
 public class DialogNomJoueur extends JDialog implements ActionListener
 {
 	private JTextField[] listJtf;
@@ -12,6 +12,7 @@ public class DialogNomJoueur extends JDialog implements ActionListener
 	private JButton buttonOk, buttonCancel;
 	private Launcher ihm;
 	public DialogNomJoueur(int taille, Launcher ihm){
+		super(ihm,true);
 		this.ihm=ihm;
 		this.setSize(300,taille*50+20);
 		this.setUndecorated(true);
@@ -25,7 +26,7 @@ public class DialogNomJoueur extends JDialog implements ActionListener
 		this.panBas=new JPanel();
 
 		this.panCentre.setLayout(new GridLayout(taille,2));
-		this.panCentre.setBackground(new Color(197, 175, 146));
+		this.panCentre.setBackground(new Color(223,224,226));
 		for (int j=0; j<this.listJtf.length; j++)
 		{
 			JLabel lbl = new JLabel("Joueur "+(j+1)+" : ",JLabel.RIGHT);
@@ -34,8 +35,10 @@ public class DialogNomJoueur extends JDialog implements ActionListener
 		}
 
 		this.buttonOk=new JButton("Valider");
+		Apparence.setStyleBtnAction(this.buttonOk);
 		this.buttonOk.addActionListener(this);
 		this.buttonCancel=new JButton("Quitter");
+		Apparence.setStyleBtnAction(this.buttonCancel);
 		this.buttonCancel.addActionListener(this);
 
 		this.panBas.setLayout(new GridLayout(1,2));

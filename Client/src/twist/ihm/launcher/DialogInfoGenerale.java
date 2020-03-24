@@ -3,6 +3,7 @@ package twist.ihm.launcher;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import twist.ihm.Apparence;
 
 public class DialogInfoGenerale extends JDialog implements ActionListener
 {
@@ -19,7 +20,8 @@ public class DialogInfoGenerale extends JDialog implements ActionListener
 	private JButton buttonOk, buttonCancel;
 
 	public DialogInfoGenerale(Launcher ihm){
-		this.setSize(320,135);
+		super(ihm,true);
+		this.setSize(320,140);
 		this.ihm = ihm;
 		this.setLocationRelativeTo(this.ihm);
 		this.spinNbJoueur = new SpinnerNumberModel(2,2,4,1);
@@ -39,12 +41,14 @@ public class DialogInfoGenerale extends JDialog implements ActionListener
 		this.panHaut = new JPanel();
 		this.panBas  = new JPanel();
 		this.buttonOk=new JButton("Valider");
+		Apparence.setStyleBtnAction(this.buttonOk);
 		this.buttonOk.addActionListener(this);
 		this.buttonCancel=new JButton("Quitter");
+		Apparence.setStyleBtnAction(this.buttonCancel);
 		this.buttonCancel.addActionListener(this);
 
 		this.panHaut.setLayout(new GridLayout(4,2,10,10));
-		this.panHaut.setBackground(new Color(197, 175, 146));
+		this.panHaut.setBackground(new Color(223,224,226));
 		this.panBas.setLayout(new GridLayout(1,2));
 
 		this.panHaut.add(new JLabel("Nombre de Joueurs : "));

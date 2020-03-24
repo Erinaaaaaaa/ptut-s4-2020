@@ -19,7 +19,7 @@ public class ControleurGui implements Controleur
 
     public void NouveauJeu(String[] tabNomJoueur, int nbLock, int nbCol, int nbLigne)
     {
-        this.pont = new Pont(this, tabNomJoueur, nbLigne, nbCol, nbLock);
+        this.pont = new Pont(this, tabNomJoueur, nbCol, nbLigne, nbLock);
         this.plateau = new IhmPlateau(this);
     }
 
@@ -79,5 +79,10 @@ public class ControleurGui implements Controleur
     public void jouer(int x, int y, int coin)
     {
         pont.placerLock(x, y, coin);
+				System.out.println(x+" : "+y+" dans le coin"+coin);
+				if (!this.partieTerminee()) {this.plateau.majIhm();}
+				else {this.plateau.majIhm();this.plateau.fin();}
     }
+
+		public int getJoueurActif(){return pont.getJoueurActif();}
 }

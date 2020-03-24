@@ -6,10 +6,12 @@ import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
+import twist.ihm.Apparence;
 
 public class PanImage extends JPanel implements ActionListener{
 
 	private JButton bLancerPartie;
+	private JButton bQuitter;
 	private Launcher ctrl;
 
 	public PanImage(Launcher ctrl){
@@ -18,27 +20,36 @@ public class PanImage extends JPanel implements ActionListener{
 		SpringLayout sl_panel = new SpringLayout();
 		this.setLayout(sl_panel);
 
-		JLabel lblCreation = new JLabel("");
-		sl_panel.putConstraint(SpringLayout.WEST, lblCreation, -5, SpringLayout.WEST, this);
-		sl_panel.putConstraint(SpringLayout.SOUTH, lblCreation, -300, SpringLayout.SOUTH, this);
-		Font font = new Font("Helvetica",Font.BOLD,40);
-		Map attributes = font.getAttributes();
-		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		JLabel lblCreation = new JLabel("Twist-Lock");
+		Apparence.setStyleTitle(lblCreation);
+		sl_panel.putConstraint(SpringLayout.WEST, lblCreation, 66, SpringLayout.WEST, this);
+		sl_panel.putConstraint(SpringLayout.SOUTH, lblCreation, -450, SpringLayout.SOUTH, this);
 		this.add(lblCreation);
 
 		this.bLancerPartie = new JButton("Jouer");
 		this.bLancerPartie.addActionListener(this);
-		sl_panel.putConstraint(SpringLayout.NORTH, this.bLancerPartie, 0, SpringLayout.SOUTH, lblCreation);
+		Apparence.setStyleBtnPrincipale(this.bLancerPartie);
+		sl_panel.putConstraint(SpringLayout.NORTH, this.bLancerPartie, 10, SpringLayout.SOUTH, lblCreation);
 		sl_panel.putConstraint(SpringLayout.WEST, this.bLancerPartie, 66, SpringLayout.WEST, this);
-		sl_panel.putConstraint(SpringLayout.SOUTH, this.bLancerPartie, -250, SpringLayout.SOUTH, this);
+		sl_panel.putConstraint(SpringLayout.SOUTH, this.bLancerPartie, 75, SpringLayout.SOUTH, lblCreation);
 		sl_panel.putConstraint(SpringLayout.EAST, this.bLancerPartie, -72, SpringLayout.EAST, this);
 		this.add(this.bLancerPartie);
+
+		this.bQuitter = new JButton("Quitter");
+		this.bQuitter.addActionListener(this);
+		Apparence.setStyleBtnPrincipale(this.bQuitter);
+		sl_panel.putConstraint(SpringLayout.NORTH, this.bQuitter, 10, SpringLayout.SOUTH, this.bLancerPartie);
+		sl_panel.putConstraint(SpringLayout.WEST, this.bQuitter, 66, SpringLayout.WEST, this);
+		sl_panel.putConstraint(SpringLayout.SOUTH, this.bQuitter, 75, SpringLayout.SOUTH, this.bLancerPartie);
+		sl_panel.putConstraint(SpringLayout.EAST, this.bQuitter, -72, SpringLayout.EAST, this);
+		this.add(this.bQuitter);
 	}
 
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource()==this.bLancerPartie){
 			this.ctrl.addPanDemandeJ();
 		}
+		if (e.getSource()==this.bQuitter) System.exit(1);
 
 	}
 }

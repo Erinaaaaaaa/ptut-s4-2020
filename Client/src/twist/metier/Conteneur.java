@@ -46,7 +46,7 @@ public class Conteneur
                 {
                     if(voisins[C_O]  != null) voisins[C_O] .putLockReference(1, lock);
                     if(voisins[C_NO] != null) voisins[C_NO].putLockReference(2, lock);
-                    if(voisins[C_N]  != null) voisins[C_N] .putLockReference( 3, lock);
+                    if(voisins[C_N]  != null) voisins[C_N] .putLockReference(3, lock);
                 }
                 break;
             case 1:
@@ -60,7 +60,7 @@ public class Conteneur
                 {
                     if(voisins[C_E]  != null) voisins[C_E] .putLockReference(3, lock);
                     if(voisins[C_SE] != null) voisins[C_SE].putLockReference(0, lock);
-                    if(voisins[C_S]  != null) voisins[C_S] .putLockReference( 1, lock);
+                    if(voisins[C_S]  != null) voisins[C_S] .putLockReference(1, lock);
                 }
                 break;
             case 3:

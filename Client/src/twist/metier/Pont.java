@@ -151,4 +151,6 @@ public class Pont
     {
         return this.joueurs.length;
     }
+
+		public int getJoueurActif(){return this.joueurCourant;}
 }

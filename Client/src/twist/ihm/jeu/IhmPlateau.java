@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class IhmPlateau extends JFrame {
 
-	public static final String[] PLACES_MAIN = new String[]{"West", "East", "North", "South"};
+	public static final String[] PLACES_MAIN = new String[]{"West", "North", "East", "South"};
 	private Plateau plateau;
 	private PanelJoueur[] tabJoueur;
 	private ControleurGui ctrl;
@@ -23,7 +23,7 @@ public class IhmPlateau extends JFrame {
 		int largeur = (int)tailleEcran.getWidth();
 		this.joueurActif = 0;
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setLayout(new BorderLayout(20,20));
+
 		this.setLocationRelativeTo(null);
 
 		this.plateau = new Plateau(this, this.ctrl);
@@ -35,12 +35,21 @@ public class IhmPlateau extends JFrame {
 		if ( this.ctrl.getNbJoueur()==2) dj=2;
 		for (int i = 0;i<this.tabJoueur.length ;i++ ) {
 			tabJoueur[i] = new PanelJoueur(ctrl,i,dj!=2&&(i==1||i==3));
-			this.add(tabJoueur[i],PLACES_MAIN[i]);
+			if (dj==2) {this.add(tabJoueur[i],PLACES_MAIN[i*dj]);	}
+			else       {this.add(tabJoueur[i],PLACES_MAIN[i]);	}
 		}
-		this.plateau.preparer(true);
-
+		this.pack();
 		this.setVisible(true);
 	}
 	public int getJoueurActif(){return this.joueurActif;}
-
+	public void majIhm(){
+		this.plateau.miseAJour();
+		for (int i = 0;i<this.tabJoueur.length ;i++ ) {
+			tabJoueur[i].miseAJour();
+		}
+		this.repaint();
+	}
+	public void fin(){
+		new DialogFinJeu(this,this.ctrl);
+	}
 }

@@ -14,16 +14,17 @@ public class PanelJoueur extends JPanel{
 	private Color coulJoueur;
 	private int numeroJoueur;
 	private JLabel imageJoueur;
+	private JLabel infoJoueur;
 
 	public PanelJoueur(ControleurGui ctrl,int idJoueur,Boolean verticale){
 		this.ctrl = ctrl;
 		this.numeroJoueur = idJoueur;
 		this.coulJoueur   = Apparence.getJoueurCouleur(idJoueur);
-
+			Apparence.setBackgroundPanelJoueur(this,this.ctrl.getJoueurActif());
 		// Logo
 		/*ImageIcon icon;
 		try {
-			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("./twist/ihm/img/joueur" + idJoueur + ".png")));
+			icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("..\\twist\\ihm\\img\\joueur" + idJoueur + ".png")));
 		} catch (IOException e) {
 		e.printStackTrace();
 		return;
@@ -33,11 +34,12 @@ public class PanelJoueur extends JPanel{
 		else           {this.setLayout(new GridLayout(2,1));}
 
 		//this.add(this.imageJoueur);
-		this.add(setInfoJoueur());
+		this.infoJoueur = new JLabel(setInfoJoueur());
+		Apparence.setStyleLbl(this.infoJoueur,coulJoueur);
+		this.add(this.infoJoueur);
 	}
 
-	private JPanel setInfoJoueur(){
-		JPanel pan = new JPanel();
+	private String setInfoJoueur(){
 		String nbLocker = "<html>"+
 				this.ctrl.getJoueur(numeroJoueur).getNom()+" "+
 				this.ctrl.getScoreJoueur(numeroJoueur)    +"<br/>";
@@ -46,9 +48,14 @@ public class PanelJoueur extends JPanel{
 			 nbLocker += "\u25CF";
 		}
 		nbLocker += "</html>";
-		JLabel JlLocker = new JLabel(nbLocker);
-		Apparence.setStyleLbl(JlLocker,coulJoueur);
-		pan.add(JlLocker);
-		return pan;
+		return nbLocker;
+	}
+
+	public int getNbJoueur(){return this.numeroJoueur;}
+
+	public void miseAJour(){
+		this.infoJoueur.setText(setInfoJoueur());
+		Apparence.setBackgroundPanelJoueur(this,this.ctrl.getJoueurActif());
+		this.repaint();
 	}
 }
