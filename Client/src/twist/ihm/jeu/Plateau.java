@@ -116,9 +116,11 @@ public class Plateau extends JPanel implements MouseListener{
 				(e.getY()<baseY+SIZE && e.getY()>baseY-SIZE)) {locker = true;}
 			}
 			if (locker) {
-				if (lig == lMax && col == cMax) {this.controleur.jouer(lMax-1, cMax-1, 2);}
-				/*else if (lig == 11 && col ==  1) {this.controleur.jouer(lig-1, col-1, 3);}
-				else if (lig ==  1 && col ==  1) {this.controleur.jouer(lig-1, col-1, 0);}
+				System.out.println(lig+" : "+col);
+				if (lig == lMax && col == cMax) {this.controleur.jouer(lMax-2, cMax-2, 2);}
+				else if (lig == lMax && col < cMax) {this.controleur.jouer(lMax-2, col-1, 1);}
+				else if (lig < lMax && col == cMax ) {this.controleur.jouer(lig-1,  cMax-2, 3);}
+				/*else if (lig ==  1 && col ==  cMax) {this.controleur.jouer(lig-1, cMax-2, 0);}
 				else if (lig ==  1 && col == 11) {this.controleur.jouer(lig-1, col-1, 1);}*/
 				else{this.controleur.jouer(lig-1, col-1, 0);}
 			}

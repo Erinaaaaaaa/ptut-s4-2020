@@ -21,7 +21,7 @@ public class PanelJoueur extends JPanel{
 		this.numeroJoueur = idJoueur;
 		this.coulJoueur   = Apparence.getJoueurCouleur(idJoueur);
 		Apparence.setBackgroundPanelJoueur(this,this.ctrl.getJoueurActif());
-		
+
 		// Logo
 		ImageIcon icon;
 		try {
@@ -30,6 +30,7 @@ public class PanelJoueur extends JPanel{
 			e.printStackTrace();
 			return;
 		}
+		icon = new ImageIcon(icon.getImage().getScaledInstance(65,158, Image.SCALE_SMOOTH));
 		this.imageJoueur  = new JLabel(icon);
 		if (verticale) {this.setLayout(new GridLayout(1,2));}
 		else           {this.setLayout(new GridLayout(2,1));}

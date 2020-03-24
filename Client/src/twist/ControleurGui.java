@@ -79,7 +79,7 @@ public class ControleurGui implements Controleur
     public void jouer(int x, int y, int coin)
     {
         pont.placerLock(x, y, coin);
-				System.out.println(x+" : "+y+" dans le coin"+coin);
+				System.out.println(x+" : "+y+" dans le coin "+coin);
 				if (!this.partieTerminee()) {this.plateau.majIhm();}
 				else {this.plateau.majIhm();this.plateau.fin();}
     }
