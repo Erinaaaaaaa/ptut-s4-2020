@@ -86,6 +86,7 @@ public class Plateau extends JPanel implements MouseListener{
 						Ellipse2D.Double c = new Ellipse2D.Double(((col+x) * contWidth)-(SIZE-3)/2,((lig+y) * contHeight)-(SIZE-3)/2,SIZE,SIZE);
 						g2.fill(c);
 						if (conteneur.joueurMajoritaire()!=null) {
+							g2.setColor(Apparence.getJoueurCouleur(this.controleur.getNumeroJoueur(conteneur.joueurMajoritaire())));
 						Ellipse2D.Double c1 = new Ellipse2D.Double(baseX+contWidth/2-(SIZE) , baseY+contHeight/2-(SIZE) , SIZE*2, SIZE*2);
 						g2.fill(c1);
 					}
