@@ -107,16 +107,56 @@ public class Pont
 
     public boolean partieTerminee()
     {
-        for (Joueur joueur : this.joueurs)
-            if (joueur.getNbLocks() != 0)
-                return false;
+        boolean peutJouer = false;
+        boolean peutPlacer = false;
+
+        Joueur[] joueurs1 = this.joueurs;
+        for (int i = 0; i < joueurs1.length && !peutJouer; i++)
+        {
+            Joueur joueur = joueurs1[i];
+            if (joueur.getNbLocks() > 0)
+                peutJouer = true;
+        }
 
         for (Conteneur[] c1 : conteneurs)
-        for (Conteneur c : c1)
-        for (Lock l : c.getLocks())
-            if (l == null) return false;
+        {
+            for (Conteneur c : c1)
+            {
+                for (Lock l : c.getLocks())
+                {
+                    if (l == null)
+                    {
+                        peutPlacer = true;
+                        break;
+                    }
+                }
+                if (peutPlacer) break;
+            }
+            if (peutPlacer) break;
+        }
 
-        return true;
+        return !(peutJouer && peutPlacer);
+    }
+
+    public Joueur getGagnant()
+    {
+        if (!partieTerminee()) return null;
+
+        Joueur best = null;
+        int score = -1;
+
+        for (int i = 0; i < joueurs.length; i++)
+        {
+            Joueur j = joueurs[i];
+            int scoreTmp = getScoreJoueur(i);
+            if (scoreTmp > score)
+            {
+                best = j;
+                score = scoreTmp;
+            }
+        }
+
+        return best;
     }
 
     public Joueur getJoueur(int i)
@@ -128,17 +168,21 @@ public class Pont
 
     public int getScoreJoueur(int i)
     {
+        return getScoreJoueur(this.joueurs[i]);
+    }
+
+    public int getScoreJoueur(Joueur j)
+    {
         int score = 0;
-        Joueur j = this.joueurs[i];
 
         for (int x = 0; x < largeur; x++)
-        for (int y = 0; y < hauteur; y++)
-        {
-            Conteneur c = this.conteneurs[x][y];
+            for (int y = 0; y < hauteur; y++)
+            {
+                Conteneur c = this.conteneurs[x][y];
 
-            if (c.joueurMajoritaire() == j)
-                score += c.getValeur();
-        }
+                if (c.joueurMajoritaire() == j)
+                    score += c.getValeur();
+            }
 
         return score;
     }
@@ -158,4 +202,5 @@ public class Pont
     }
 
     public int getJoueurActif(){return this.joueurCourant;}
+
 }

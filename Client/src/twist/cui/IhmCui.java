@@ -22,6 +22,15 @@ public class IhmCui
             input();
         }
 
+        afficherGagnant();
+    }
+
+    private void afficherGagnant()
+    {
+        Joueur j = ctrl.getGagnant();
+        int score = ctrl.getScoreJoueur(j);
+
+        System.out.println(j.getNom() + " gagne avec " + score + " points");
     }
 
     private void input()

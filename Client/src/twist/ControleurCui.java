@@ -12,7 +12,7 @@ public class ControleurCui implements Controleur
 
     public ControleurCui()
     {
-        this.pont = new Pont(this, new String[]{"Joueur 1", "Joueur 2"});
+        this.pont = new Pont(this, new String[]{"Joueur 1", "Joueur 2"}, 5,5,5);
         this.ihmCui = new IhmCui(this);
     }
 
@@ -46,9 +46,21 @@ public class ControleurCui implements Controleur
     }
 
     @Override
+    public Joueur getGagnant()
+    {
+        return pont.getGagnant();
+    }
+
+    @Override
     public int getScoreJoueur(int i)
     {
         return this.pont.getScoreJoueur(i);
+    }
+
+    @Override
+    public int getScoreJoueur(Joueur j)
+    {
+        return pont.getScoreJoueur(j);
     }
 
     @Override

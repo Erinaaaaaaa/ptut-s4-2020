@@ -12,10 +12,13 @@ public interface Controleur
 
     int getNbJoueur();
     Joueur getJoueur(int i);
+    Joueur getGagnant();
     int getScoreJoueur(int i);
+    int getScoreJoueur(Joueur j);
     int getNumeroJoueur(Joueur joueur);
 
     boolean partieTerminee();
 
     void jouer(int x, int y, int coin);
+
 }

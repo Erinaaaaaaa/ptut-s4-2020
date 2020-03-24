@@ -58,9 +58,21 @@ public class ControleurGui implements Controleur
     }
 
     @Override
+    public Joueur getGagnant()
+    {
+        return pont.getGagnant();
+    }
+
+    @Override
     public int getScoreJoueur(int i)
     {
         return this.pont.getScoreJoueur(i);
+    }
+
+    @Override
+    public int getScoreJoueur(Joueur j)
+    {
+        return pont.getScoreJoueur(j);
     }
 
     @Override
