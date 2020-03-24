@@ -107,9 +107,14 @@ public class Pont
 
     public boolean partieTerminee()
     {
-        for (int i = 0; i < this.joueurs.length; i++)
-            if (this.joueurs[i].getNbLocks() != 0)
+        for (Joueur joueur : this.joueurs)
+            if (joueur.getNbLocks() != 0)
                 return false;
+
+        for (Conteneur[] c1 : conteneurs)
+        for (Conteneur c : c1)
+        for (Lock l : c.getLocks())
+            if (l == null) return false;
 
         return true;
     }
@@ -152,5 +157,5 @@ public class Pont
         return this.joueurs.length;
     }
 
-		public int getJoueurActif(){return this.joueurCourant;}
+    public int getJoueurActif(){return this.joueurCourant;}
 }
