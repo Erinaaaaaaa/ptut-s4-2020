@@ -1,6 +1,5 @@
 package twist.net;
 
-import sun.rmi.runtime.Log;
 import twist.util.Logger;
 
 import java.io.IOException;
