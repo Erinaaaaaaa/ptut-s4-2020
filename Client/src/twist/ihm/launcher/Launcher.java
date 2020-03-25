@@ -8,6 +8,7 @@ public class Launcher extends JFrame{
 	private PanImage panelAccueil;
 	private DialogInfoGenerale panelDemandeJ;
 	private DialogNomJoueur panNomsJ;
+	private DialogNomReseau panelReseau;
 	private ControleurGui ctrl;
 	private int nbJoueurs;
 	private int nbLock;
@@ -21,6 +22,7 @@ public class Launcher extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.panelAccueil  = new PanImage(this);
 		this.panelDemandeJ = new DialogInfoGenerale(this);
+		this.panelReseau   = new DialogNomReseau(this);
 		this.setContentPane(this.panelAccueil);
 
 		this.setVisible(true);
@@ -32,6 +34,11 @@ public class Launcher extends JFrame{
 	public void addPanDemandeJ()
 	{
 		this.panelDemandeJ.setVisible(true);
+	}
+
+	public void addPanReseau()
+	{
+		this.panelReseau.setVisible(true);
 	}
 
 	public void setNbJoueur(int nbJ){ this.nbJoueurs=nbJ; }
