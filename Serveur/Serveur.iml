@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Metier" />
+    <orderEntry type="library" name="jansi-1.18" level="project" />
   </component>
 </module>
