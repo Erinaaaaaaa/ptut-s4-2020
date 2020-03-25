@@ -1,15 +1,15 @@
 package twist.net;
 
+import twist.metier.Conteneur;
+import twist.metier.Joueur;
+import twist.metier.Lock;
 import twist.metier.Pont;
 import twist.util.Logger;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ServeurJeu
 {
@@ -17,7 +17,9 @@ public class ServeurJeu
 
     private int nbJoueurs;
 
-    private HashMap<InetSocketAddress, ClientManager> clients;
+    private HashMap<InetSocketAddress, ClientManager> hmClients;
+    private ClientManager[] tabClients;
+
     private String[] couleurs = { "ROUGE", "VERT", "BLEU", "JAUNE" };
 
     private Pont pont;
@@ -28,26 +30,26 @@ public class ServeurJeu
         this.nbJoueurs = nbJoueurs;
     }
 
-    public void run()
+    public void run() throws IOException
     {
         Logger.information("Ecoute sur " + serveur.getPort());
 
-        clients = new HashMap<>();
+        hmClients = new HashMap<>();
 
         // Etape 1: récupération du nom des joueurs
-        while (this.clients.size() < this.nbJoueurs)
+        while (this.hmClients.size() < this.nbJoueurs)
         {
             try
             {
                 Message m = serveur.lireMessage();
 
-                if (!clients.containsKey(m.getAdresse()))
+                if (!hmClients.containsKey(m.getAdresse()))
                 {
                     String nomJoueur = m.getMessage();
 
-                    clients.put(m.getAdresse(), new ClientManager(m.getAdresse(), nomJoueur));
+                    hmClients.put(m.getAdresse(), new ClientManager(m.getAdresse(), nomJoueur));
 
-                    int numJoueur = clients.size();
+                    int numJoueur = hmClients.size();
 
                     String messageSortie = numJoueur + "-Bonjour " + nomJoueur + "; vous êtes le Joueur " + numJoueur + "(" + couleurs[numJoueur-1] + "), attente suite...";
 
@@ -58,7 +60,7 @@ public class ServeurJeu
                 else
                 {
                     serveur.envoyerMessage("91-Vous êtes déjà inscrit!", m.getAdresse());
-                    Logger.warning(clients.get(m.getAdresse()).getNomJoueur() + " est déjà inscrit");
+                    Logger.warning(hmClients.get(m.getAdresse()).getNomJoueur() + " est déjà inscrit");
                 }
             }
             catch (IOException e)
@@ -69,15 +71,20 @@ public class ServeurJeu
 
         // Etape 2: préparation de la partie
         {
-            String[] noms = new String[clients.size()];
+            String[] noms = new String[hmClients.size()];
+            tabClients = new ClientManager[hmClients.size()];
             int i = 0;
-            for (Map.Entry<InetSocketAddress, ClientManager> entry : clients.entrySet())
+            for (ClientManager client : hmClients.values())
             {
-                noms[i] = entry.getValue().getNomJoueur();
+                noms[i] = client.getNomJoueur();
+                tabClients[i] = client;
                 i++;
             }
 
-            pont = new Pont(noms);
+            pont = new Pont(noms, (int)(Math.random() * 5 + 5), (int)(Math.random() * 5 + 5), 2);
+
+            for (int j = 0; j < tabClients.length; j++)
+                tabClients[j].setJoueur(pont.getJoueur(j));
 
             StringBuilder sb = new StringBuilder("01-La partie va commencer\nMAP=");
 
@@ -106,14 +113,104 @@ public class ServeurJeu
             }
         }
 
-        
+        // Etape 3: jeu
+        boolean inviteEnvoyee = false;
+        {
+            while (!pont.partieTerminee())
+            {
+                try
+                {
+                    if (!inviteEnvoyee)
+                    {
+                        serveur.envoyerMessage("10-A vous de jouer (" + couleurs[pont.getJoueurActif()] + ")",
+                                tabClients[pont.getJoueurActif()].getAdresse());
+                        inviteEnvoyee = true;
+                    }
+
+                    Message m = serveur.lireMessage();
+
+                    boolean resultat = false;
+
+                    if (!hmClients.containsKey(m.getAdresse()))
+                    {
+                        Logger.warning("Une personne invalide a essayé de jouer");
+                        // Aucune réponse
+                    }
+                    else if (!m.getAdresse().equals(tabClients[pont.getJoueurActif()].getAdresse()))
+                    {
+                        Logger.warning(hmClients.get(m.getAdresse()).getNomJoueur() + " n'a pas joué au bon moment");
+                        serveur.envoyerMessage("91-Ce n'est pas votre tour!", m.getAdresse());
+                    }
+                    else
+                    {
+                        // Le bon joueur a envoyé son message
+                        inviteEnvoyee = false;
+                        String message = m.getMessage();
+                        if (!message.matches("[0-9][A-Z][1-4]"))
+                        {
+                            pont.placerLock(-1, -1, -1);
+                        }
+                        else
+                        {
+                            int lig = message.charAt(0) - '1';
+                            int col = message.charAt(1) - 'A';
+                            int coin = message.charAt(2) - '1';
+                            Logger.verbose("pont.placerLock("+col+", "+lig+", "+coin+")");
+                            resultat = pont.placerLock(col, lig, coin);
+                        }
+
+                        if (!resultat)
+                        {
+                            Logger.warning(hmClients.get(m.getAdresse()).getNomJoueur() + " a entré un coup illégal");
+                            envoyerAPresqueToutLeMonde("22-Coup adversaire illégal", m.getAdresse());
+                            serveur.envoyerMessage("21-Coup joué illégal", m.getAdresse());
+                        }
+                        else
+                        {
+                            Logger.information(hmClients.get(m.getAdresse()).getNomJoueur() + " a joué " + m.getMessage());
+                            envoyerAPresqueToutLeMonde("20-Coup adversaire: " + m.getMessage(), m.getAdresse());
+                        }
+
+                        if (hmClients.get(m.getAdresse()).getJoueur().getNbLocks() <= 0)
+                        {
+                            Logger.information(hmClients.get(m.getAdresse()).getNomJoueur() + " est tombé à court de locks!");
+                            serveur.envoyerMessage("50-Vous êtes tombé à court de locks!", m.getAdresse());
+                        }
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            StringBuilder sb = new StringBuilder("88-Partie terminée, scores finaux: ");
+
+            for (int i = 0, tabClientsLength = tabClients.length; i < tabClientsLength; i++)
+            {
+                ClientManager clientManager = tabClients[i];
+
+                sb.append(String.format("\n%-20s (%5s): %3d points", clientManager.getNomJoueur(), couleurs[i], pont.getScoreJoueur(i)));
+            }
+
+            sb.append("\nGagnant: ").append(pont.getGagnant().getNom());
+
+            broadcast(sb.toString());
+        }
 
         Logger.information("Exécution terminée");
     }
 
     private void broadcast(String message) throws IOException
     {
-        for (InetSocketAddress addr : clients.keySet())
-            serveur.envoyerMessage(message, addr);
+        for (ClientManager clientManager : tabClients)
+            serveur.envoyerMessage(message, clientManager.getAdresse());
+    }
+
+    private void envoyerAPresqueToutLeMonde(String message, InetSocketAddress exception) throws IOException
+    {
+        for (ClientManager clientManager : tabClients)
+            if (!clientManager.getAdresse().equals(exception))
+                serveur.envoyerMessage(message, clientManager.getAdresse());
     }
 }

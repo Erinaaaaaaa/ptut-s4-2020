@@ -26,4 +26,19 @@ public class ClientManager
     }
 
     public int getNbJoueur() { return this.nbJoueur; }
+
+    public void setJoueur(Joueur joueur)
+    {
+        this.joueur = joueur;
+    }
+
+    public InetSocketAddress getAdresse()
+    {
+        return this.adresse;
+    }
+
+    public Joueur getJoueur()
+    {
+        return this.joueur;
+    }
 }

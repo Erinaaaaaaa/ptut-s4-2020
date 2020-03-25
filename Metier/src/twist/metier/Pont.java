@@ -27,17 +27,19 @@ public class Pont
     /*---------------*/
 
     //TODO : CLEAN LES CONSTRUCTEURS DU PONT
-    
-    public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
+
+    public Pont(Controleur ctrl, String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
     {
+        this.ctrl = ctrl;
+
         this.largeur = largeur;
         this.hauteur = hauteur;
 
         this.conteneurs = new Conteneur[largeur][hauteur];
 
         for (int x = 0; x < largeur; x++)
-        for (int y = 0; y < hauteur; y++)
-            this.conteneurs[x][y] = new Conteneur();
+            for (int y = 0; y < hauteur; y++)
+                this.conteneurs[x][y] = new Conteneur();
 
         this.joueurs = new Joueur[nomsJoueurs.length];
 
@@ -45,24 +47,22 @@ public class Pont
             this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
 
         this.joueurCourant = 0;
-    }
-
-    public Pont(Controleur ctrl, String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
-    {
-        this(nomsJoueurs, largeur, hauteur, nbLocks);
-        this.ctrl = ctrl;
 
         definirVoisins();
     }
 
+    public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
+    {
+        this(null, nomsJoueurs, largeur, hauteur, nbLocks);
+    }
+
+
     public Pont(Controleur ctrl, String[] nomsJoueurs)
     {
-      this(nomsJoueurs,
-              (int) (Math.random() * (MAX_LIGNES   - MIN_LIGNES))   + MIN_LIGNES,
-              (int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
-              NB_LOCKS_DEFAULT);
-
-        this.ctrl = ctrl;
+        this(ctrl, nomsJoueurs,
+                (int) (Math.random() * (MAX_LIGNES - MIN_LIGNES)) + MIN_LIGNES,
+                (int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
+                NB_LOCKS_DEFAULT);
 
         definirVoisins();
     }
@@ -144,12 +144,17 @@ public class Pont
         if (!result)
             j.utiliserLock();
 
+        passerJoueur();
+
+        return result;
+    }
+
+    public void passerJoueur()
+    {
         this.joueurCourant = (joueurCourant + 1) % this.joueurs.length;
 
         while (this.joueurs[this.joueurCourant].getNbLocks() == 0 && !partieTerminee())
             this.joueurCourant = (joueurCourant + 1) % this.joueurs.length;
-
-        return result;
     }
 
     public boolean partieTerminee()
