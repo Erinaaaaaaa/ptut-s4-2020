@@ -28,6 +28,13 @@ public class Conteneur
         this.voisins = new Conteneur[8];
     }
 
+    public Conteneur(int valeur)
+    {
+      this();
+      this.valeur = valeur;
+    }
+
+    public void setValeur(int valeur) { this.valeur = valeur; }
     /*
      * Positions des locks:
      *        0 ----- 1

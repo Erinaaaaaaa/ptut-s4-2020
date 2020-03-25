@@ -23,6 +23,7 @@ public class ControleurGui implements Controleur
         this.plateau = new IhmPlateau(this);
     }
 
+
     public static void main(String[] args)
     {
         new ControleurGui();
