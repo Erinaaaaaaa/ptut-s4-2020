@@ -10,6 +10,7 @@ import twist.ihm.jeu.IhmPlateau;
 public class ControleurGui implements Controleur
 {
     private Pont pont;
+		private Serveur serveur;
     private IhmPlateau plateau;
 
     public ControleurGui()
@@ -95,6 +96,10 @@ public class ControleurGui implements Controleur
 				this.plateau.majIhm();
 				if (this.partieTerminee()) {;this.plateau.fin();}
     }
+
+		public void startServeur(String adrresseIP,int portConnexion){
+			this.serveur = new Serveur(this,adrresseIP,portConnexion);
+		}
 
 		public int getJoueurActif(){return pont.getJoueurActif();}
 }

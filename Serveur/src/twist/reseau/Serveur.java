@@ -9,12 +9,14 @@ import java.util.ArrayList;
 public class Serveur extends Thread {
 	private ControleurGui controleur;
 	private String adresseIP;
-	private ArrayList<ClientServeur> clients;
+	private ArrayList<Client> clients;
 	private DatagramSocket datagramSocket;
+	private int portConnexion;
 
-	public Serveur(ControleurGui controleur, String adresseIP) {
+	public Serveur(ControleurGui controleur, String adresseIP,int portConnexion) {
 		this.controleur = controleur;
 		this.adresseIP = adresseIP;
+		this.portConnexion = portConnexion;
 		this.clients = new ArrayList<>();
 
 		try {
