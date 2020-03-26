@@ -97,9 +97,8 @@ public class ServeurJeu
                     if (y != pont.getLargeur() - 1)
                         sb.append(':');
                 }
-
-                if (x != pont.getHauteur() - 1)
-                    sb.append('|');
+                
+                sb.append('|');
             }
 
             Logger.information("Envoi de la map au clients");
