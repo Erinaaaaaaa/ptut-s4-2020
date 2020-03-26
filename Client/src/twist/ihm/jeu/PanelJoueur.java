@@ -80,10 +80,8 @@ public class PanelJoueur extends JPanel
 						icon = null;
 						if (numeroJoueur == this.ctrl.getJoueurActif()) {
             	icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (numeroJoueur + 1) + "1.png")));
-							System.out.println("TEST 1 ");
 						}else {
 							icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (numeroJoueur + 1) + "0.png")));
-							System.out.println("TEST 2 ");
 						}
         	}
         catch (IOException e)
@@ -98,6 +96,7 @@ public class PanelJoueur extends JPanel
 				this.add(new JLabel(icon));
 				this.add(this.infoJoueur);
 				Apparence.setBackgroundPanelJoueur(this, this.ctrl.getJoueurActif());
-        this.repaint();
+				this.revalidate();
+				this.repaint();
     }
 }
