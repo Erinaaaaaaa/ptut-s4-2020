@@ -17,6 +17,7 @@ public class PanelJoueur extends JPanel
     private int numeroJoueur;
     private JLabel imageJoueur;
     private JLabel infoJoueur;
+		private ImageIcon icon;
 
     public PanelJoueur(Controleur ctrl, int idJoueur, Boolean verticale)
     {
@@ -26,17 +27,19 @@ public class PanelJoueur extends JPanel
         Apparence.setBackgroundPanelJoueur(this, this.ctrl.getJoueurActif());
 
         // Logo
-        ImageIcon icon;
-        try
-        {
-            icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (idJoueur + 1) + ".png")));
+        try{
+						if (idJoueur == 0) {
+            	icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (idJoueur + 1) + "1.png")));
+						}else {
+							icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (idJoueur + 1) + "0.png")));
+						}
         }
         catch (IOException e)
         {
             e.printStackTrace();
             return;
         }
-        icon = new ImageIcon(icon.getImage().getScaledInstance(65, 158, Image.SCALE_SMOOTH));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(100, 158, Image.SCALE_SMOOTH));
         this.imageJoueur = new JLabel(icon);
         if (verticale)
         {
@@ -73,8 +76,28 @@ public class PanelJoueur extends JPanel
 
     public void miseAJour()
     {
-        this.infoJoueur.setText(setInfoJoueur());
-        Apparence.setBackgroundPanelJoueur(this, this.ctrl.getJoueurActif());
+				try{
+						icon = null;
+						if (numeroJoueur == this.ctrl.getJoueurActif()) {
+            	icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (numeroJoueur + 1) + "1.png")));
+							System.out.println("TEST 1 ");
+						}else {
+							icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/joueur" + (numeroJoueur + 1) + "0.png")));
+							System.out.println("TEST 2 ");
+						}
+        	}
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+				icon = new ImageIcon(icon.getImage().getScaledInstance(100, 158, Image.SCALE_SMOOTH));
+				System.out.println(icon.toString());
+				this.removeAll();
+				this.infoJoueur.setText(setInfoJoueur());
+				this.add(new JLabel(icon));
+				this.add(this.infoJoueur);
+				Apparence.setBackgroundPanelJoueur(this, this.ctrl.getJoueurActif());
         this.repaint();
     }
 }
