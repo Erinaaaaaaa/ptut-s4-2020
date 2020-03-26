@@ -47,7 +47,7 @@ public class ControleurReseau extends Controleur
         int nbLignes = map.split("\\|").length;
         int nbColonnes = map.split("\\|")[0].split(":").length;
 
-        Conteneur[][] tabConteneurs = new Conteneur[nbLignes][nbColonnes];
+        Conteneur[][] tabConteneurs = new Conteneur[nbColonnes][nbLignes];
 
         String ligneActuelle = "";
         for (int i = 0; i < nbLignes; i++)
@@ -122,5 +122,10 @@ public class ControleurReseau extends Controleur
     public void finPartie()
     {
         this.ihm.fin();
+    }
+
+    public void finPartie(String s)
+    {
+        this.ihm.fin(s);
     }
 }

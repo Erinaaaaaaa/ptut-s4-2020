@@ -25,7 +25,7 @@ public class LecteurThread implements Runnable
         {
             try
             {
-                String[] s = ctrl.lireMessage().split("-", 2);
+                String[] s = ctrl.lireMessage().split("-|:", 2);
 
                 if (s[0].length() == 1)
                 {
@@ -69,7 +69,7 @@ public class LecteurThread implements Runnable
                         break;
                         case "88":
                         {
-                            ctrl.finPartie();
+                            ctrl.finPartie(s[1]);
                         }
                         break;
                     }

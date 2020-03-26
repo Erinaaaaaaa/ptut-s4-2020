@@ -70,4 +70,9 @@ public class IhmPlateau extends JFrame
     {
         new DialogFinJeu(this, this.ctrl);
     }
+
+    public void fin(String s)
+    {
+        new DialogFinJeu(this, this.ctrl, s);
+    }
 }

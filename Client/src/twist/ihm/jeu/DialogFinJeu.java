@@ -18,17 +18,22 @@ public class DialogFinJeu extends JDialog implements ActionListener
 
     public DialogFinJeu(IhmPlateau ihm, Controleur ctrl)
     {
+        this(ihm, ctrl, null);
+    }
+
+    public DialogFinJeu(IhmPlateau ihm, Controleur ctrl, String s)
+    {
         super(ihm, true);
         this.ihm = ihm;
         this.ctrl = ctrl;
         this.setSize(450, 600);
         this.setLocationRelativeTo(this.ihm);
         this.setLayout(new GridLayout(4, 1, 20, 20));
-        JLabel lblVictoir = new JLabel("Victoire !!", JLabel.CENTER);
+        JLabel lblVictoir = new JLabel(s == null ? "Victoire !!" : "Fin de partie", JLabel.CENTER);
         Apparence.setStyleTitle(lblVictoir);
         this.add(lblVictoir);
 
-        JLabel lblGagnaint = new JLabel("Bien Joueur à " + this.ctrl.getGagnant().getNom(), JLabel.CENTER);
+        JLabel lblGagnaint = new JLabel(s == null ? ("Bien Joueur à " + this.ctrl.getGagnant().getNom()) : s, JLabel.CENTER);
         Apparence.setStyleLbl(lblGagnaint, new Color(7, 16, 19));
         this.add(lblGagnaint);
 
