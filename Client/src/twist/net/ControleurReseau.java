@@ -44,20 +44,22 @@ public class ControleurReseau extends Controleur
 
     public Conteneur[][] interpreterMap(String map)
     {
-        int nbLignes = map.split("\\|").length;
+        map = map.substring(0, map.length() - 1);
+
+        int nbLignes   = map.split("\\|").length;
         int nbColonnes = map.split("\\|")[0].split(":").length;
 
         Conteneur[][] tabConteneurs = new Conteneur[nbColonnes][nbLignes];
 
         String ligneActuelle = "";
-        for (int i = 0; i < nbLignes; i++)
+        for(int i = 0; i < nbLignes; i++)
         {
             ligneActuelle = map.split("\\|")[i];
-            for (int j = 0; j < nbColonnes; j++)
+            for(int j = 0; j < nbColonnes; j++)
             {
                 int valeur = Integer.parseInt(ligneActuelle.split(":")[j]);
                 Conteneur cont = new Conteneur(valeur);
-                tabConteneurs[i][j] = cont;
+                tabConteneurs[j][i] = cont;
             }
         }
 
