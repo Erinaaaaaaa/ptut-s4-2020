@@ -1,8 +1,5 @@
 package twist.net;
 
-import twist.metier.Conteneur;
-import twist.metier.Joueur;
-import twist.metier.Lock;
 import twist.metier.Pont;
 import twist.util.Logger;
 
@@ -81,18 +78,18 @@ public class ServeurJeu
                 i++;
             }
 
-            pont = new Pont(noms, (int)(Math.random() * 5 + 5), (int)(Math.random() * 5 + 5), 2);
+            pont = new Pont(noms, (int)(Math.random() * 5 + 5), (int)(Math.random() * 5 + 5), 20);
 
             for (int j = 0; j < tabClients.length; j++)
                 tabClients[j].setJoueur(pont.getJoueur(j));
 
             StringBuilder sb = new StringBuilder("01-La partie va commencer\nMAP=");
 
-            for (int x = 0; x < pont.getHauteur(); x++)
+            for (int x = 0; x < pont.getLargeur(); x++)
             {
-                for (int y = 0; y < pont.getLargeur(); y++)
+                for (int y = 0; y < pont.getHauteur(); y++)
                 {
-                    sb.append(pont.getPlateau()[y][x].getValeur());
+                    sb.append(pont.getConteneurs()[x][y].getValeur());
 
                     if (y != pont.getLargeur() - 1)
                         sb.append(':');

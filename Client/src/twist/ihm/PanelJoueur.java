@@ -1,6 +1,7 @@
 package twist.ihm;
 
 import twist.Controleur;
+import twist.util.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class PanelJoueur extends JPanel
         this.ctrl = c;
         this.coul = coul;
 
-        System.out.println(this.coul);
+        Logger.verbose(this.coul);
 
         /*switch(this.coul)
         {
@@ -30,26 +31,28 @@ public class PanelJoueur extends JPanel
         }*/
 
 
-
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g)
+    {
         //Appel de la méthode paintComponent de la classe mère
         super.paintComponent(g);
 
         BufferedImage img = null;
 
-        try{
-            img = ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/"+this.coul+".png"));
+        try
+        {
+            img = ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/" + this.coul + ".png"));
 
             //img = ImageIO.read(getClass().getResourceAsStream("/twist/ihm/img/"+this.coul+".png"));
 
-        } catch (IOException e) { e.printStackTrace();}
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-        g.drawImage(img, 0,0,251,425,null);
-
-
-
+        g.drawImage(img, 0, 0, 251, 425, null);
 
 
     }

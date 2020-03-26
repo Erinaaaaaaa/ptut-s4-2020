@@ -14,7 +14,7 @@ public class Fenetre extends JFrame
     {
         this.setTitle("Twist-Lock");
         this.setLocation(50, 50);
-        this.setSize(900,600);
+        this.setSize(900, 600);
         this.ctrl = c;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -39,8 +39,8 @@ public class Fenetre extends JFrame
     }
 
 
-
-        public void majIHM(){
+    public void majIHM()
+    {
 
     }
 

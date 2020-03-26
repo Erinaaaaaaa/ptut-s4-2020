@@ -7,6 +7,6 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        new ServeurJeu(57300, 2).run();
+        new ServeurJeu(2000, 2).run();
     }
 }

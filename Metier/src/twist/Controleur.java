@@ -2,23 +2,28 @@ package twist;
 
 import twist.metier.Conteneur;
 import twist.metier.Joueur;
+import twist.metier.Pont;
 
-public interface Controleur
+public abstract class Controleur
 {
-    Conteneur[][] getConteneurs();
+    protected Pont pont;
 
-    int getLargeurPont();
-    int getHauteurPont();
+    public Conteneur[][] getConteneurs() { return this.pont.getConteneurs(); }
 
-    int getNbJoueur();
-    Joueur getJoueur(int i);
-    Joueur getGagnant();
-    int getScoreJoueur(int i);
-    int getScoreJoueur(Joueur j);
-    int getNumeroJoueur(Joueur joueur);
+    public int getLargeurPont(){ return this.pont.getLargeur(); }
+    public int getHauteurPont(){ return this.pont.getHauteur(); }
 
-    boolean partieTerminee();
+    public int getNbJoueur(){ return this.pont.getNbJoueur(); }
+    public Joueur getJoueur(int i){ return this.pont.getJoueur(i); }
+    public Joueur getGagnant(){ return this.pont.getGagnant(); }
+    public int getScoreJoueur(int i){ return this.pont.getScoreJoueur(i); }
+    public int getScoreJoueur(Joueur j){ return this.pont.getScoreJoueur(j); }
+    public int getNumeroJoueur(Joueur j){ return this.pont.getNumeroJoueur(j); }
+    public int getJoueurActif() { return this.pont.getJoueurActif(); }
 
-    void jouer(int x, int y, int coin);
+
+    public boolean partieTerminee(){ return this.pont.partieTerminee(); }
+
+    public void jouer(int x, int y, int coin) { this.pont.placerLock(x, y, coin); }
 
 }

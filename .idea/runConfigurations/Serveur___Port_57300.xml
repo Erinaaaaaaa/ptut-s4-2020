@@ -4,7 +4,7 @@
     <module name="Serveur" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="twist.*" />
+        <option name="PATTERN" value="twist.net.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

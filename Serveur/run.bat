@@ -11,7 +11,7 @@ powershell (gci -Path ../Metier/src -Recurse *.java^|Resolve-Path -Relative) >> 
 
 echo ----- DEBUT COMPILATION -----
 echo.
-javac -encoding utf-8 -cp .;lib/jansi-1.18.jar -d out @compile.list
+javac -encoding utf-8 -cp .;../Metier/lib/jansi-1.18.jar -d out @compile.list
 echo.
 echo -----  FIN COMPILATION  -----
 
@@ -22,7 +22,7 @@ del exclude.tmp > NUL
 
 echo ----- DEBUT EXECUTION -----
 echo.
-java -cp ./out;./lib/jansi-1.18.jar twist.Main
+java -cp ./out;../Metier/lib/jansi-1.18.jar twist.Main
 echo.
 echo -----  FIN EXECUTION  -----
 

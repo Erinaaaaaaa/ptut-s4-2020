@@ -72,12 +72,23 @@ public class Pont
       this(null,nomsJoueurs);
     }
 
+    /*-------------------------------*/
+    /* CONSTRUCTEURS avec CONTENEURS */
+    /*-------------------------------*/
+
     public Pont(String[] nomsJoueurs, Conteneur[][] conteneurs)
     {
-      this(nomsJoueurs);
-      this.conteneurs = conteneurs;
+        this(null, nomsJoueurs, conteneurs);
+    }
 
-      definirVoisins();
+    public Pont(Controleur ctrl, String[] nomsJoueurs, Conteneur[][] conteneurs)
+    {
+        this(ctrl, nomsJoueurs);
+        this.conteneurs = conteneurs;
+        this.largeur = conteneurs.length;
+        this.hauteur = conteneurs[0].length;
+
+        definirVoisins();
     }
 
     /*----------*/
@@ -86,20 +97,21 @@ public class Pont
 
     public void definirVoisins()
     {
-      for (int x = 0; x < conteneurs.length; x++)
-      for (int y = 0; y < conteneurs[0].length; y++)
-      {
-          Conteneur c = this.conteneurs[x][y];
 
-          if (y > 0           && x > 0          ) c.setVoisin(0, this.conteneurs[x - 1][y - 1]);
-          if (y > 0                             ) c.setVoisin(1, this.conteneurs[x    ][y - 1]);
-          if (y > 0           && x < largeur - 1) c.setVoisin(2, this.conteneurs[x + 1][y - 1]);
-          if (                   x < largeur - 1) c.setVoisin(3, this.conteneurs[x + 1][y    ]);
-          if (y < hauteur - 1 && x < largeur - 1) c.setVoisin(4, this.conteneurs[x + 1][y + 1]);
-          if (y < hauteur - 1                   ) c.setVoisin(5, this.conteneurs[x    ][y + 1]);
-          if (y < hauteur - 1 && x > 0          ) c.setVoisin(6, this.conteneurs[x - 1][y + 1]);
-          if (                   x > 0          ) c.setVoisin(7, this.conteneurs[x - 1][y    ]);
-      }
+        for (int x = 0; x < largeur; x++)
+        for (int y = 0; y < hauteur; y++)
+        {
+            Conteneur c = this.conteneurs[x][y];
+
+            if (y > 0           && x > 0          ) c.setVoisin(0, this.conteneurs[x - 1][y - 1]);
+            if (y > 0                             ) c.setVoisin(1, this.conteneurs[x    ][y - 1]);
+            if (y > 0           && x < largeur - 1) c.setVoisin(2, this.conteneurs[x + 1][y - 1]);
+            if (                   x < largeur - 1) c.setVoisin(3, this.conteneurs[x + 1][y    ]);
+            if (y < hauteur - 1 && x < largeur - 1) c.setVoisin(4, this.conteneurs[x + 1][y + 1]);
+            if (y < hauteur - 1                   ) c.setVoisin(5, this.conteneurs[x    ][y + 1]);
+            if (y < hauteur - 1 && x > 0          ) c.setVoisin(6, this.conteneurs[x - 1][y + 1]);
+            if (                   x > 0          ) c.setVoisin(7, this.conteneurs[x - 1][y    ]);
+        }
     }
 
     public void setControleur(Controleur ctrl)
@@ -123,7 +135,7 @@ public class Pont
         return hauteur;
     }
 
-    public Conteneur[][] getPlateau()
+    public Conteneur[][] getConteneurs()
     {
         return conteneurs;
     }
