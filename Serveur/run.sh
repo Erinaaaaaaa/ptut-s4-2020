@@ -8,18 +8,16 @@ find ../Metier/src | grep .java$ >> compile.list
 
 echo ----- DEBUT COMPILATION -----
 echo
-javac -encoding utf-8 -cp .;../Metier/lib/jansi-1.18.jar -d out @compile.list
+javac -encoding utf-8 -cp .:../Metier/lib/jansi-1.18.jar -d out @compile.list
 echo
 echo -----  FIN COMPILATION  -----
 
 cp -r src/* out
 
-del compile.list
+rm compile.list
 
 echo ----- DEBUT EXECUTION -----
-echo.
-java -cp ./out;../Metier/lib/jansi-1.18.jar twist.Serveur $@
-echo.
+echo
+java -cp ./out:../Metier/lib/jansi-1.18.jar twist.Serveur $@
+echo
 echo -----  FIN EXECUTION  -----
-
-pause
