@@ -32,9 +32,9 @@ public class DialogFinJeu extends JDialog implements ActionListener
         JLabel lblVictoir = new JLabel(s == null ? "Victoire !!" : "Fin de partie", JLabel.CENTER);
         Apparence.setStyleTitle(lblVictoir);
         this.add(lblVictoir);
-				String reponce ="";
+				String reponce =">Bien joué à "+this.ctrl.getGagnant().getNom();
 				if (s != null) {
-					reponce = "<html>Bien joué<br>"+s.replace("\n", "<br>")+"</html>";
+					reponce = "<html"+s.replace("\n", "<br>")+"</html>";
 				}
         JLabel lblGagnaint = new JLabel(reponce, JLabel.CENTER);
         Apparence.setStyleLbl(lblGagnaint, new Color(7, 16, 19));
