@@ -21,5 +21,3 @@ echo
 java -cp ./out:../Metier/lib/jansi-1.18.jar twist.Launcher $@
 echo
 echo -----  FIN EXECUTION  -----
-
-pause
