@@ -31,4 +31,7 @@ public abstract class Controleur
 
     public void jouer(int x, int y, int coin) { this.pont.placerLock(x, y, coin); }
 
+		public void majIhm(){}
+			public void finPartie(){}
+
 }

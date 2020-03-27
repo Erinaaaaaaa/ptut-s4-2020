@@ -14,10 +14,11 @@ public class ControleurGui extends Controleur
 {
     private final IhmPlateau plateau;
 
-    public ControleurGui(String[] tabNomJoueur, int nbLock, int nbCol, int nbLigne)
+    public ControleurGui(String[] tabNomJoueur,Boolean[] tabIA, int nbLock, int nbCol, int nbLigne)
     {
-        this.pont = new Pont(tabNomJoueur, nbCol, nbLigne, nbLock);
+        this.pont = new Pont(this,tabNomJoueur, tabIA, nbCol, nbLigne, nbLock);
         this.plateau = new IhmPlateau(this);
+				this.pont.faireJouerIA();
     }
 
     @Override
@@ -25,8 +26,12 @@ public class ControleurGui extends Controleur
     {
         super.jouer(x, y, coin);
         Logger.information(x + " : " + y + " dans le coin " + coin);
-        this.plateau.majIhm();
+        this.majIhm();
+				pont.faireJouerIA();
         if (this.partieTerminee())
             this.plateau.fin();
     }
+
+		public void majIhm(){this.plateau.majIhm();}
+			public void finPartie(){this.plateau.fin();}
 }

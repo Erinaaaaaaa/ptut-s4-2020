@@ -25,11 +25,14 @@ public class ControleurReseau extends Controleur
     private final String nomJoueur;
     private int indiceJoueurLocal;
 
-    public ControleurReseau(String host, int port, String nom) throws SocketException, UnknownHostException
+		private Boolean estIA;
+
+    public ControleurReseau(String host,Boolean estIA, int port, String nom) throws SocketException, UnknownHostException
     {
         Logger.information("Connection à " + host +":"+ port + " en tant que " + nom);
         this.nomJoueur = nom;
-        client = new ClientUdp(host, port);
+				this.estIA = estIA;
+				client = new ClientUdp(host, port);
         preparer();
     }
 
@@ -87,10 +90,13 @@ public class ControleurReseau extends Controleur
     public void creerPont(Conteneur[][] conteneurs)
     {
         String[] noms = {"Joueur 1", "Joueur 2"};
+				Boolean[] ia = new Boolean[]{false,false};
+				ia[indiceJoueurLocal] = estIA;
         noms[indiceJoueurLocal] = nomJoueur;
 
-        this.pont = new Pont(noms, conteneurs);
+        this.pont = new Pont(this,noms,ia, conteneurs);
         this.ihm = new IhmPlateau(this);
+				this.pont.faireJouerIA();
     }
 
     @Override

@@ -1,4 +1,5 @@
 package twist.metier;
+import twist.Controleur;
 
 /*
  * Classe Pont.java
@@ -19,6 +20,8 @@ public class Pont
     private int largeur;
     private int hauteur;
 
+		private Controleur ctrl;
+
     private Conteneur[][] conteneurs;
 
     private final Joueur[] joueurs;
@@ -30,8 +33,13 @@ public class Pont
 
     //TODO : CLEAN LES CONSTRUCTEURS DU PONT
 
-    public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
+		public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks){
+			this(null, nomsJoueurs,new Boolean[]{false,false} , largeur, hauteur, nbLocks);
+		}
+
+    public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] tabIA, int largeur, int hauteur, int nbLocks)
     {
+				this.ctrl = ctrl;
         this.largeur = largeur;
         this.hauteur = hauteur;
 
@@ -44,7 +52,13 @@ public class Pont
         this.joueurs = new Joueur[nomsJoueurs.length];
 
         for (int i = 0; i < nomsJoueurs.length; i++)
-            this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
+				if (tabIA[i]) {
+						System.out.println("Joueur "+i+" : IA");
+						this.joueurs[i] = new IAJoueur(this,nomsJoueurs[i], nbLocks);
+					}else{
+						System.out.println("Joueur "+i+" : Joueur");
+						this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
+					}
 
         this.joueurCourant = 0;
 
@@ -52,9 +66,9 @@ public class Pont
     }
 
 
-    public Pont(String[] nomsJoueurs)
+    public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] ia)
     {
-        this(nomsJoueurs,
+        this(ctrl,nomsJoueurs,ia,
                 (int) (Math.random() * (MAX_LIGNES - MIN_LIGNES)) + MIN_LIGNES,
                 (int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
                 NB_LOCKS_DEFAULT);
@@ -66,9 +80,9 @@ public class Pont
     /* CONSTRUCTEURS avec CONTENEURS */
     /*-------------------------------*/
 
-    public Pont(String[] nomsJoueurs, Conteneur[][] conteneurs)
+    public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] ia, Conteneur[][] conteneurs)
     {
-        this(nomsJoueurs);
+        this(ctrl,nomsJoueurs,ia);
         this.conteneurs = conteneurs;
         this.largeur = conteneurs.length;
         this.hauteur = conteneurs[0].length;
@@ -246,4 +260,28 @@ public class Pont
     {
         this.joueurCourant = joueur;
     }
+
+		public void faireJouerIA(){
+		if (joueurs[this.joueurCourant] instanceof IAJoueur)
+			{	((IAJoueur)joueurs[this.joueurCourant]).jouer();
+			this.ctrl.majIhm();}
+			new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			if(!this.nouveauTour()){
+					this.ctrl.finPartie();
+			}
+		}).start();
+	}
+
+	public boolean nouveauTour(){
+		if (partieTerminee()) return false;
+
+		this.faireJouerIA();
+		return true;
+	}
 }

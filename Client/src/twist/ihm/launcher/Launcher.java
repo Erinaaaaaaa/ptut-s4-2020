@@ -64,9 +64,9 @@ public class Launcher extends JFrame
         new DialogNomJoueur(this.nbJoueurs, this);
     }
 
-    public void debuterPartie(String[] tabNomJoueur)
+    public void debuterPartie(String[] tabNomJoueur,Boolean[] tabIA)
     {
-        new ControleurGui(tabNomJoueur, this.nbLock, this.nbCol, this.nbLigne);
+        new ControleurGui(tabNomJoueur,tabIA, this.nbLock, this.nbCol, this.nbLigne);
         this.dispose();
     }
 

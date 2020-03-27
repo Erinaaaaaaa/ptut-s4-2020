@@ -13,6 +13,7 @@ import twist.ihm.Apparence;
 public class DialogNomReseau extends JDialog implements ActionListener
 {
     private final JTextField txtNom;
+		private JCheckBox  intelligents;
     private final JTextField txtHost;
     private final JSpinner spinnerPort;
 
@@ -24,30 +25,39 @@ public class DialogNomReseau extends JDialog implements ActionListener
     {
         super(ihm, true);
 
-        int taille = 3;
-
         this.ihm = ihm;
-        this.setSize(300, taille * 50 + 20);
+        this.setSize(300, 4 * 50 + 20);
         this.setUndecorated(true);
         this.setLocationRelativeTo(this.ihm);
         this.setModal(true);
 
-        this.txtNom = new JTextField();
+        this.txtNom = new JTextField("Joueur XXX");
         this.txtHost = new JTextField("localhost");
-        SpinnerModel spinnPort = new SpinnerNumberModel(2000, 1024, 65535, 1);
+        SpinnerModel spinnPort = new SpinnerNumberModel(9876, 1024, 65535, 1);
 
         JPanel panCentre = new JPanel();
+				JPanel panDroite=new JPanel();
         JPanel panBas = new JPanel();
 
-        panCentre.setLayout(new GridLayout(taille, 2));
+        panCentre.setLayout(new GridLayout(4, 2));
+				panDroite.setLayout(new GridLayout(4,1,10,10));
         panCentre.setBackground(new Color(223, 224, 226));
-
+				panDroite.setBackground(new Color(223, 224, 226));
+				panCentre.add(new JLabel(""));
+				panCentre.add(new JLabel(""));
         panCentre.add(new JLabel("Nom : "));
         panCentre.add(this.txtNom);
-        panCentre.add(new JLabel("Host : "));
+				panCentre.add(new JLabel("Host : "));
         panCentre.add(this.txtHost);
         panCentre.add(new JLabel("Port : "));
         panCentre.add(this.spinnerPort = new JSpinner(spinnPort));
+
+				this.intelligents = new JCheckBox( "" , true );
+				this.intelligents.setOpaque(false);
+				panDroite.add(new JLabel("IA",JLabel.CENTER));
+				panDroite.add(this.intelligents);
+				panDroite.add(new JLabel(""));
+				panDroite.add(new JLabel(""));
 
         this.buttonOk = new JButton("Valider");
         Apparence.setStyleBtnAction(this.buttonOk);
@@ -61,6 +71,7 @@ public class DialogNomReseau extends JDialog implements ActionListener
         panBas.add(this.buttonCancel);
 
         this.add(panCentre, BorderLayout.CENTER);
+				this.add(panDroite,BorderLayout.EAST);
         this.add(panBas, BorderLayout.SOUTH);
     }
 
@@ -89,7 +100,7 @@ public class DialogNomReseau extends JDialog implements ActionListener
                 try
                 {
                     this.ihm.dispose();
-                    new ControleurReseau(this.txtHost.getText(), (int)this.spinnerPort.getValue(), this.txtNom.getText());
+                    new ControleurReseau(this.txtHost.getText(),intelligents.isSelected(), (int)this.spinnerPort.getValue(), this.txtNom.getText());
                 }
                 catch (SocketException | UnknownHostException ex)
                 {

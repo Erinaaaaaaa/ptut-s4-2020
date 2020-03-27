@@ -10,21 +10,18 @@ import java.awt.*;
 
 public class DialogFinJeu extends JDialog implements ActionListener
 {
-    private final IhmPlateau ihm;
     private final JButton bLancerPartie;
     private final JButton bQuitter;
 
-    public DialogFinJeu(IhmPlateau ihm, Controleur ctrl)
+    public DialogFinJeu(Controleur ctrl)
     {
-        this(ihm, ctrl, null);
+        this( ctrl, null);
     }
 
-    public DialogFinJeu(IhmPlateau ihm, Controleur ctrl, String s)
+    public DialogFinJeu(Controleur ctrl, String s)
     {
-        super(ihm, true);
-        this.ihm = ihm;
         this.setSize(450, 600);
-        this.setLocationRelativeTo(this.ihm);
+        this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(4, 1, 20, 20));
         JLabel lblVictoir = new JLabel(s == null ? "Victoire !!" : "Fin de partie", JLabel.CENTER);
         Apparence.setStyleTitle(lblVictoir);
@@ -49,7 +46,6 @@ public class DialogFinJeu extends JDialog implements ActionListener
     {
         if (e.getSource() == this.bLancerPartie)
         {
-            this.ihm.dispose();
             this.dispose();
             new Launcher();
         }

@@ -56,11 +56,13 @@ public class IhmPlateau extends JFrame
 
     public void fin()
     {
-        new DialogFinJeu(this, this.ctrl);
+				this.dispose();
+        new DialogFinJeu(this.ctrl);
     }
 
     public void fin(String s)
     {
-        new DialogFinJeu(this, this.ctrl, s);
+				this.dispose();
+        new DialogFinJeu(this.ctrl, s);
     }
 }
