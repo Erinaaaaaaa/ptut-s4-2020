@@ -137,4 +137,9 @@ public class ControleurReseau extends Controleur
     {
         this.ihm.fin(s);
     }
+
+    public void setJoueurLocalActif()
+    {
+        this.pont.setJoueurActif(this.indiceJoueurLocal);
+    }
 }

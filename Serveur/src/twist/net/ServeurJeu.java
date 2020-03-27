@@ -3,6 +3,7 @@ package twist.net;
 import twist.metier.Pont;
 import twist.util.Logger;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
@@ -118,6 +119,21 @@ public class ServeurJeu
 
         // Etape 3: jeu
         boolean inviteEnvoyee = false;
+        // 60 secondes
+        Timer t = new Timer(1000 * 60, e -> {
+            try
+            {
+                // On sait qu'il n'y a que deux joueurs.
+                broadcast("88-Timeout de " + alClients.get(this.pont.getJoueurActif()).getNomJoueur() + " - " + alClients.get(1 - this.pont.getJoueurActif()).getNomJoueur() + " gagne par forfait");
+                System.exit(0);
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        });
+
+
         {
             while (!pont.partieTerminee())
             {
@@ -125,6 +141,7 @@ public class ServeurJeu
                 {
                     if (!inviteEnvoyee)
                     {
+                        t.restart();
                         serveur.envoyerMessage("10-A vous de jouer (" + couleurs[pont.getJoueurActif()] + ")",
                                 alClients.get(pont.getJoueurActif()).getAdresse());
                         inviteEnvoyee = true;
@@ -147,6 +164,7 @@ public class ServeurJeu
                     else
                     {
                         // Le bon joueur a envoyé son message
+                        t.stop();
                         inviteEnvoyee = false;
                         String message = m.getMessage();
                         if (!message.matches("[0-9][A-Z][1-4]"))

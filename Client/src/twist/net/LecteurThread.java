@@ -49,7 +49,7 @@ public class LecteurThread implements Runnable
                         break;
                         case "10":
                         {
-                            // Pas nécessairement utile?
+                            this.ctrl.setJoueurLocalActif();
                         }
                         break;
                         case "20":

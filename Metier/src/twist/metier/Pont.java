@@ -273,4 +273,8 @@ public class Pont
 
     public int getJoueurActif(){return this.joueurCourant;}
 
+    public void setJoueurActif(int joueur)
+    {
+        this.joueurCourant = joueur;
+    }
 }
