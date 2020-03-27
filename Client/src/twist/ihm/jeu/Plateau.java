@@ -126,7 +126,7 @@ public class Plateau extends JPanel implements MouseListener
 
             g2d.setColor(Apparence.getJoueurCouleur(joueur));
 
-            g2d.fillOval(startX + ARC_RADIUS, startY + ARC_RADIUS, (int)(largeur - 2 * ARC_RADIUS), (int)(hauteur - 2 * ARC_RADIUS));
+            g2d.fillOval(midX - ARC_RADIUS*2, midY - ARC_RADIUS*2, 4 * ARC_RADIUS, 4 * ARC_RADIUS);
         }
 
         g2d.setColor(Color.black);
