@@ -39,11 +39,6 @@ public class ServeurUdp
         return new Message(texte, (InetSocketAddress) packet.getSocketAddress());
     }
 
-    public void envoyerMessage(Message message) throws IOException
-    {
-        envoyerMessage(message.getMessage(), message.getAdresse());
-    }
-
     public void envoyerMessage(String texte, InetSocketAddress destination) throws IOException
     {
         Logger.verbose(String.format("[To   %s] %s", destination.toString(), texte));

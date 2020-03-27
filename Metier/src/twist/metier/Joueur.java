@@ -7,7 +7,7 @@ package twist.metier;
 
 public class Joueur
 {
-    private String nom;
+    private final String nom;
     private int nbLocks;
 
     public Joueur(String nom, int nbLocks)

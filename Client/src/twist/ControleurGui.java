@@ -1,9 +1,6 @@
 package twist;
 
-import twist.metier.Conteneur;
-import twist.metier.Joueur;
 import twist.metier.Pont;
-import twist.ihm.launcher.Launcher;
 import twist.ihm.jeu.IhmPlateau;
 import twist.util.Logger;
 
@@ -15,11 +12,11 @@ import twist.util.Logger;
 
 public class ControleurGui extends Controleur
 {
-    private IhmPlateau plateau;
+    private final IhmPlateau plateau;
 
     public ControleurGui(String[] tabNomJoueur, int nbLock, int nbCol, int nbLigne)
     {
-        this.pont = new Pont(this, tabNomJoueur, nbCol, nbLigne, nbLock);
+        this.pont = new Pont(tabNomJoueur, nbCol, nbLigne, nbLock);
         this.plateau = new IhmPlateau(this);
     }
 

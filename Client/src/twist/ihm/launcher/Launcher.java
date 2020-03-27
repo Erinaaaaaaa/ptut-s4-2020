@@ -6,10 +6,8 @@ import twist.ControleurGui;
 
 public class Launcher extends JFrame
 {
-    private PanImage panelAccueil;
-    private DialogInfoGenerale panelDemandeJ;
-    private DialogNomJoueur panNomsJ;
-    private DialogNomReseau panelReseau;
+    private final DialogInfoGenerale panelDemandeJ;
+    private final DialogNomReseau panelReseau;
     private int nbJoueurs;
     private int nbLock;
     private int nbCol;
@@ -20,10 +18,10 @@ public class Launcher extends JFrame
         this.setSize(516, 705);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.panelAccueil = new PanImage(this);
+        PanImage panelAccueil = new PanImage(this);
         this.panelDemandeJ = new DialogInfoGenerale(this);
         this.panelReseau = new DialogNomReseau(this);
-        this.setContentPane(this.panelAccueil);
+        this.setContentPane(panelAccueil);
 
         this.setVisible(true);
 
@@ -63,7 +61,7 @@ public class Launcher extends JFrame
 
     public void addDialogNomJoueur()
     {
-        this.panNomsJ = new DialogNomJoueur(this.nbJoueurs, this);
+        new DialogNomJoueur(this.nbJoueurs, this);
     }
 
     public void debuterPartie(String[] tabNomJoueur)

@@ -18,12 +18,12 @@ public class ClientUdp
     private byte[] inputBytes = new byte[PACKET_MAX_LENGTH];
     private byte[] outputBytes = new byte[0];
 
-    private DatagramPacket outputPacket;
-    private DatagramPacket inputPacket;
+    private final DatagramPacket outputPacket;
+    private final DatagramPacket inputPacket;
 
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
 
-    private String fullHost;
+    private final String fullHost;
 
     public ClientUdp(String ipAddr, int port) throws UnknownHostException, SocketException
     {
@@ -63,4 +63,8 @@ public class ClientUdp
     }
 
 
+    public boolean connecte()
+    {
+        return !this.socket.isClosed();
+    }
 }

@@ -15,23 +15,23 @@ import java.util.regex.Pattern;
 
 public class LecteurThread implements Runnable
 {
-    private ControleurReseau ctrl;
+    private final ControleurReseau ctrl;
 
     public LecteurThread(ControleurReseau ctrl)
     {
         this.ctrl = ctrl;
     }
 
-    Pattern p = Pattern.compile("([1-9][A-Z][1-4])");
+    final Pattern p = Pattern.compile("([1-9][A-Z][1-4])");
 
     @Override
     public void run()
     {
-        while (true)
+        while (this.ctrl.connecte())
         {
             try
             {
-                String[] s = ctrl.lireMessage().split("-|:", 2);
+                String[] s = ctrl.lireMessage().split("[-:]", 2);
 
                 if (s[0].length() == 1)
                 {

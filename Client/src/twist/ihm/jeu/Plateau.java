@@ -16,21 +16,15 @@ import java.awt.event.*;
  */
 public class Plateau extends JPanel implements MouseListener
 {
-
-    private final int SIZE = 0;
-
     private final int ARC_RADIUS = 12;
-    private final int GAP_WIDTH  = 4;
-    private IhmPlateau ihm;
 
-    private Controleur controleur;
+    private final Controleur controleur;
     private int largeurConteneur, hauteurConteneur;
 
-    Plateau(IhmPlateau ihm, Controleur controleur)
+    Plateau(Controleur controleur)
     {
         super(true);
 
-        this.ihm = ihm;
         this.controleur = controleur;
         Apparence.setBackgroundPlateau(this);
         addMouseListener(this);
@@ -48,10 +42,7 @@ public class Plateau extends JPanel implements MouseListener
 
         Graphics2D g2 = (Graphics2D) g;
         Conteneur conteneur;
-        Lock lock;
         double baseX, baseY;
-
-        double x, y;
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -72,15 +63,13 @@ public class Plateau extends JPanel implements MouseListener
 
     private void drawConteneur(Graphics2D g2d, Conteneur conteneur, double x, double y, double largeur, double hauteur)
     {
+        int GAP_WIDTH = 4;
         int startX = (int) x            + GAP_WIDTH;
         int endX   = (int)(x + largeur) - GAP_WIDTH;
         int startY = (int) y            + GAP_WIDTH;
         int endY   = (int)(y + hauteur) - GAP_WIDTH;
         int midX   = (int)(x + largeur / 2);
         int midY   = (int)(y + hauteur / 2);
-
-        largeur = endX - startX;
-        hauteur = endY - startY;
 
         g2d.drawArc(startX - ARC_RADIUS, startY - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS,    0, -90);
         g2d.drawArc(endX   - ARC_RADIUS, startY - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS, - 90, -90);
@@ -161,7 +150,6 @@ public class Plateau extends JPanel implements MouseListener
             y += hauteurConteneur;
         }
 
-        boolean surCoin = false;
         int coin = -1;
 
         // Détermination du coin cliqué

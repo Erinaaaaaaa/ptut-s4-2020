@@ -7,7 +7,7 @@ package twist.metier;
 
 public class Lock
 {
-    private Joueur joueur;
+    private final Joueur joueur;
 
     public Lock(Joueur joueur)
     {

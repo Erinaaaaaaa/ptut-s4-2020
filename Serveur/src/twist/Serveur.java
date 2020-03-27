@@ -1,7 +1,6 @@
 package twist;
 
 import twist.net.ServeurJeu;
-import twist.util.Logger;
 
 /*
  * Classe Serveur.java

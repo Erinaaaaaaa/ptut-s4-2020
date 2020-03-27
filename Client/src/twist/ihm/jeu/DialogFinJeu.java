@@ -1,7 +1,6 @@
 package twist.ihm.jeu;
 
 import twist.Controleur;
-import twist.ControleurGui;
 import twist.ihm.Apparence;
 import twist.ihm.launcher.Launcher;
 
@@ -11,10 +10,9 @@ import java.awt.*;
 
 public class DialogFinJeu extends JDialog implements ActionListener
 {
-    private IhmPlateau ihm;
-    private Controleur ctrl;
-    private JButton bLancerPartie;
-    private JButton bQuitter;
+    private final IhmPlateau ihm;
+    private final JButton bLancerPartie;
+    private final JButton bQuitter;
 
     public DialogFinJeu(IhmPlateau ihm, Controleur ctrl)
     {
@@ -25,18 +23,13 @@ public class DialogFinJeu extends JDialog implements ActionListener
     {
         super(ihm, true);
         this.ihm = ihm;
-        this.ctrl = ctrl;
         this.setSize(450, 600);
         this.setLocationRelativeTo(this.ihm);
         this.setLayout(new GridLayout(4, 1, 20, 20));
         JLabel lblVictoir = new JLabel(s == null ? "Victoire !!" : "Fin de partie", JLabel.CENTER);
         Apparence.setStyleTitle(lblVictoir);
         this.add(lblVictoir);
-				String reponce =">Bien joué à "+this.ctrl.getGagnant().getNom();
-				if (s != null) {
-					reponce = "<html"+s.replace("\n", "<br>")+"</html>";
-				}
-        JLabel lblGagnaint = new JLabel(reponce, JLabel.CENTER);
+        JLabel lblGagnaint = new JLabel(s == null ? ("Bien joué à " + ctrl.getGagnant().getNom()) : "<html>"+s.replace("\n", "<br>")+"</html>", JLabel.CENTER);
         Apparence.setStyleLbl(lblGagnaint, new Color(7, 16, 19));
         this.add(lblGagnaint);
 

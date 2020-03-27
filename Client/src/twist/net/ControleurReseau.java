@@ -19,10 +19,10 @@ import java.net.UnknownHostException;
 
 public class ControleurReseau extends Controleur
 {
-    private ClientUdp client;
+    private final ClientUdp client;
     private IhmPlateau ihm;
 
-    private String nomJoueur;
+    private final String nomJoueur;
     private int indiceJoueurLocal;
 
     public ControleurReseau(String host, int port, String nom) throws SocketException, UnknownHostException
@@ -58,7 +58,7 @@ public class ControleurReseau extends Controleur
 
         Conteneur[][] tabConteneurs = new Conteneur[nbColonnes][nbLignes];
 
-        String ligneActuelle = "";
+        String ligneActuelle;
         for(int i = 0; i < nbLignes; i++)
         {
             ligneActuelle = map.split("\\|")[i];
@@ -79,11 +79,6 @@ public class ControleurReseau extends Controleur
         return client.lireMessage();
     }
 
-    public void envoyer(String texte) throws IOException
-    {
-        client.envoyer(texte);
-    }
-
     public void setJoueurLocal(int i)
     {
         this.indiceJoueurLocal = i;
@@ -94,7 +89,7 @@ public class ControleurReseau extends Controleur
         String[] noms = {"Joueur 1", "Joueur 2"};
         noms[indiceJoueurLocal] = nomJoueur;
 
-        this.pont = new Pont(this, noms, conteneurs);
+        this.pont = new Pont(noms, conteneurs);
         this.ihm = new IhmPlateau(this);
     }
 
@@ -128,11 +123,6 @@ public class ControleurReseau extends Controleur
         this.ihm.majIhm();
     }
 
-    public void finPartie()
-    {
-        this.ihm.fin();
-    }
-
     public void finPartie(String s)
     {
         this.ihm.fin(s);
@@ -141,5 +131,18 @@ public class ControleurReseau extends Controleur
     public void setJoueurLocalActif()
     {
         this.pont.setJoueurActif(this.indiceJoueurLocal);
+    }
+
+    @Override
+    public boolean partieTerminee()
+    {
+        if (pont == null) return false;
+        else
+        return super.partieTerminee();
+    }
+
+    public boolean connecte()
+    {
+        return this.client.connecte();
     }
 }

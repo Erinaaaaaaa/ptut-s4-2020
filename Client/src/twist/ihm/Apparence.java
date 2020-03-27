@@ -2,20 +2,16 @@ package twist.ihm;
 
 import java.awt.*;
 import java.awt.font.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 
 import javax.swing.*;
 
+import sun.font.AttributeMap;
 import twist.ihm.jeu.PanelJoueur;
 
 public class Apparence
 {
-    private static Color[] TABCOULJOUEUR = {Color.RED, Color.GREEN, Color.BLUE, new Color(255, 215, 0)};
-    private static Color[] TABCOULGENERAL = {new Color(7, 16, 19), new Color(35, 181, 211), new Color(117, 171, 188), new Color(152, 164, 177), new Color(223, 224, 226)};
+    private static final Color[] TABCOULJOUEUR = {Color.RED, Color.GREEN, Color.BLUE, new Color(255, 215, 0)};
+    private static final Color[] TABCOULGENERAL = {new Color(7, 16, 19), new Color(35, 181, 211), new Color(117, 171, 188), new Color(152, 164, 177), new Color(223, 224, 226)};
 
     public static void setStyleBtnPrincipale(JButton btn)
     {
@@ -59,7 +55,7 @@ public class Apparence
         lbl.setForeground(TABCOULGENERAL[0]);
         lbl.setFont(new Font("Helvetica", Font.BOLD, 50));
         Font font = lbl.getFont();
-        Map attributes = font.getAttributes();
+        AttributeMap attributes = (AttributeMap) font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         lbl.setFont(font.deriveFont(attributes));
     }

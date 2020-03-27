@@ -1,6 +1,5 @@
 package twist.net;
 
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /*
@@ -11,8 +10,8 @@ import java.net.InetSocketAddress;
 
 public class Message
 {
-    private String message;
-    private InetSocketAddress adresse;
+    private final String message;
+    private final InetSocketAddress adresse;
 
     public Message(String message, InetSocketAddress adresse)
     {

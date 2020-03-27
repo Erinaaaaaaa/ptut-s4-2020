@@ -9,10 +9,10 @@ import twist.ihm.Apparence;
 
 public class DialogNomJoueur extends JDialog implements ActionListener
 {
-    private JTextField[] listJtf;
-    private JPanel panCentre, panBas;
-    private JButton buttonOk, buttonCancel;
-    private Launcher ihm;
+    private final JTextField[] listJtf;
+    private final JButton buttonOk;
+    private final JButton buttonCancel;
+    private final Launcher ihm;
 
     public DialogNomJoueur(int taille, Launcher ihm)
     {
@@ -26,16 +26,16 @@ public class DialogNomJoueur extends JDialog implements ActionListener
         for (int i = 0; i < this.listJtf.length; i++)
             this.listJtf[i] = new JTextField("Joueur " + (i + 1));
 
-        this.panCentre = new JPanel();
-        this.panBas = new JPanel();
+        JPanel panCentre = new JPanel();
+        JPanel panBas = new JPanel();
 
-        this.panCentre.setLayout(new GridLayout(taille, 2));
-        this.panCentre.setBackground(new Color(223, 224, 226));
+        panCentre.setLayout(new GridLayout(taille, 2));
+        panCentre.setBackground(new Color(223, 224, 226));
         for (int j = 0; j < this.listJtf.length; j++)
         {
             JLabel lbl = new JLabel("Joueur " + (j + 1) + " : ", JLabel.RIGHT);
-            this.panCentre.add(lbl);
-            this.panCentre.add(this.listJtf[j]);
+            panCentre.add(lbl);
+            panCentre.add(this.listJtf[j]);
         }
 
         this.buttonOk = new JButton("Valider");
@@ -45,12 +45,12 @@ public class DialogNomJoueur extends JDialog implements ActionListener
         Apparence.setStyleBtnAction(this.buttonCancel);
         this.buttonCancel.addActionListener(this);
 
-        this.panBas.setLayout(new GridLayout(1, 2));
-        this.panBas.add(this.buttonOk);
-        this.panBas.add(this.buttonCancel);
+        panBas.setLayout(new GridLayout(1, 2));
+        panBas.add(this.buttonOk);
+        panBas.add(this.buttonCancel);
 
-        this.add(this.panCentre, BorderLayout.CENTER);
-        this.add(this.panBas, BorderLayout.SOUTH);
+        this.add(panCentre, BorderLayout.CENTER);
+        this.add(panBas, BorderLayout.SOUTH);
 
         this.setVisible(true);
     }
@@ -60,14 +60,14 @@ public class DialogNomJoueur extends JDialog implements ActionListener
         if (e.getSource() == this.buttonCancel) this.dispose();
         if (e.getSource() == this.buttonOk)
         {
-            String message = "Veuillez remplir correctement le champ : ";
+            StringBuilder message = new StringBuilder("Veuillez remplir correctement le champ : ");
             boolean correcte = true;
             for (int i = 0; i < listJtf.length; i++)
             {
                 if (this.listJtf[i].getText().equals(""))
                 {
                     correcte = false;
-                    message += "\n	- Joueur " + (i + 1);
+                    message.append("\n	- Joueur ").append(i + 1);
                 }
             }
             if (correcte)
@@ -81,7 +81,7 @@ public class DialogNomJoueur extends JDialog implements ActionListener
                 this.ihm.debuterPartie(tabNom);
             } else
             {
-                JOptionPane.showMessageDialog(null, message, "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, message.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
 
 

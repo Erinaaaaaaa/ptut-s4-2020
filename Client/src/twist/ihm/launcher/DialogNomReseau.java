@@ -12,14 +12,13 @@ import twist.ihm.Apparence;
 
 public class DialogNomReseau extends JDialog implements ActionListener
 {
-    private JTextField txtNom;
-    private JTextField txtHost;
-    private SpinnerModel spinnPort;
-    private JSpinner spinnerPort;
+    private final JTextField txtNom;
+    private final JTextField txtHost;
+    private final JSpinner spinnerPort;
 
-    private JPanel panCentre, panBas;
-    private JButton buttonOk, buttonCancel;
-    private Launcher ihm;
+    private final JButton buttonOk;
+    private final JButton buttonCancel;
+    private final Launcher ihm;
 
     public DialogNomReseau(Launcher ihm)
     {
@@ -35,20 +34,20 @@ public class DialogNomReseau extends JDialog implements ActionListener
 
         this.txtNom = new JTextField();
         this.txtHost = new JTextField("localhost");
-        this.spinnPort = new SpinnerNumberModel(2000, 1024, 65535, 1);
+        SpinnerModel spinnPort = new SpinnerNumberModel(2000, 1024, 65535, 1);
 
-        this.panCentre = new JPanel();
-        this.panBas = new JPanel();
+        JPanel panCentre = new JPanel();
+        JPanel panBas = new JPanel();
 
-        this.panCentre.setLayout(new GridLayout(taille, 2));
-        this.panCentre.setBackground(new Color(223, 224, 226));
+        panCentre.setLayout(new GridLayout(taille, 2));
+        panCentre.setBackground(new Color(223, 224, 226));
 
-        this.panCentre.add(new JLabel("Nom : "));
-        this.panCentre.add(this.txtNom);
-        this.panCentre.add(new JLabel("Host : "));
-        this.panCentre.add(this.txtHost);
-        this.panCentre.add(new JLabel("Port : "));
-        this.panCentre.add(this.spinnerPort = new JSpinner(this.spinnPort));
+        panCentre.add(new JLabel("Nom : "));
+        panCentre.add(this.txtNom);
+        panCentre.add(new JLabel("Host : "));
+        panCentre.add(this.txtHost);
+        panCentre.add(new JLabel("Port : "));
+        panCentre.add(this.spinnerPort = new JSpinner(spinnPort));
 
         this.buttonOk = new JButton("Valider");
         Apparence.setStyleBtnAction(this.buttonOk);
@@ -57,12 +56,12 @@ public class DialogNomReseau extends JDialog implements ActionListener
         Apparence.setStyleBtnAction(this.buttonCancel);
         this.buttonCancel.addActionListener(this);
 
-        this.panBas.setLayout(new GridLayout(1, 2));
-        this.panBas.add(this.buttonOk);
-        this.panBas.add(this.buttonCancel);
+        panBas.setLayout(new GridLayout(1, 2));
+        panBas.add(this.buttonOk);
+        panBas.add(this.buttonCancel);
 
-        this.add(this.panCentre, BorderLayout.CENTER);
-        this.add(this.panBas, BorderLayout.SOUTH);
+        this.add(panCentre, BorderLayout.CENTER);
+        this.add(panBas, BorderLayout.SOUTH);
     }
 
     public void actionPerformed(ActionEvent e)

@@ -3,19 +3,15 @@ package twist.ihm.jeu;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import twist.Controleur;
-import twist.ControleurGui;
 import twist.ihm.Apparence;
 
 public class PanelJoueur extends JPanel
 {
-    private Controleur ctrl;
-    private Color coulJoueur;
-    private int numeroJoueur;
-    private JLabel imageJoueur;
+    private final Controleur ctrl;
+    private final int numeroJoueur;
     private JLabel infoJoueur;
 		private ImageIcon icon;
 
@@ -23,7 +19,7 @@ public class PanelJoueur extends JPanel
     {
         this.ctrl = ctrl;
         this.numeroJoueur = idJoueur;
-        this.coulJoueur = Apparence.getJoueurCouleur(idJoueur);
+        Color coulJoueur = Apparence.getJoueurCouleur(idJoueur);
         Apparence.setBackgroundPanelJoueur(this, this.ctrl.getJoueurActif());
 
         // Logo
@@ -40,7 +36,7 @@ public class PanelJoueur extends JPanel
             return;
         }
         icon = new ImageIcon(icon.getImage().getScaledInstance(100, 158, Image.SCALE_SMOOTH));
-        this.imageJoueur = new JLabel(icon);
+        JLabel imageJoueur = new JLabel(icon);
         if (verticale)
         {
             this.setLayout(new GridLayout(1, 2));
@@ -49,7 +45,7 @@ public class PanelJoueur extends JPanel
             this.setLayout(new GridLayout(2, 1));
         }
 
-        this.add(this.imageJoueur);
+        this.add(imageJoueur);
         this.infoJoueur = new JLabel(setInfoJoueur());
         Apparence.setStyleLbl(this.infoJoueur, coulJoueur);
         this.add(this.infoJoueur);
@@ -57,16 +53,16 @@ public class PanelJoueur extends JPanel
 
     private String setInfoJoueur()
     {
-        String nbLocker = "<html>" +
+        StringBuilder nbLocker = new StringBuilder("<html>" +
                 this.ctrl.getJoueur(numeroJoueur).getNom() + " " +
-                this.ctrl.getScoreJoueur(numeroJoueur) + "<br/>";
+                this.ctrl.getScoreJoueur(numeroJoueur) + "<br/>");
         for (int i = 0; i < this.ctrl.getJoueur(numeroJoueur).getNbLocks(); i++)
         {
-            if (i == this.ctrl.getJoueur(numeroJoueur).getNbLocks() / 2) nbLocker += "<br/>";
-            nbLocker += "\u25CF";
+            if (i == this.ctrl.getJoueur(numeroJoueur).getNbLocks() / 2) nbLocker.append("<br/>");
+            nbLocker.append("\u25CF");
         }
-        nbLocker += "</html>";
-        return nbLocker;
+        nbLocker.append("</html>");
+        return nbLocker.toString();
     }
 
     public int getNbJoueur()

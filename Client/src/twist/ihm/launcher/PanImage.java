@@ -1,9 +1,6 @@
 package twist.ihm.launcher;
 
-import java.awt.*;
-import java.awt.font.*;
 import java.awt.event.*;
-import java.util.*;
 
 import javax.swing.*;
 
@@ -12,10 +9,10 @@ import twist.ihm.Apparence;
 public class PanImage extends JPanel implements ActionListener
 {
 
-    private JButton bLancerPartie;
-    private JButton bLancerPartieReseau;
-    private JButton bQuitter;
-    private Launcher ctrl;
+    private final JButton bLancerPartie;
+    private final JButton bLancerPartieReseau;
+    private final JButton bQuitter;
+    private final Launcher ctrl;
 
     public PanImage(Launcher ctrl)
     {

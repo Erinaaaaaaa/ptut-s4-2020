@@ -1,7 +1,5 @@
 package twist.metier;
 
-import twist.Controleur;
-
 /*
  * Classe Pont.java
  * Classe générale, regroupant le principal du jeu, c'est-à-dire les joueurs et les conteneurs
@@ -18,14 +16,12 @@ public class Pont
 
     private static final int NB_LOCKS_DEFAULT = 20;
 
-    private Controleur ctrl;
-
     private int largeur;
     private int hauteur;
 
     private Conteneur[][] conteneurs;
 
-    private Joueur[] joueurs;
+    private final Joueur[] joueurs;
     private int joueurCourant;
 
     /*---------------*/
@@ -34,10 +30,8 @@ public class Pont
 
     //TODO : CLEAN LES CONSTRUCTEURS DU PONT
 
-    public Pont(Controleur ctrl, String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
+    public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
     {
-        this.ctrl = ctrl;
-
         this.largeur = largeur;
         this.hauteur = hauteur;
 
@@ -57,25 +51,15 @@ public class Pont
         definirVoisins();
     }
 
-    public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
-    {
-        this(null, nomsJoueurs, largeur, hauteur, nbLocks);
-    }
 
-
-    public Pont(Controleur ctrl, String[] nomsJoueurs)
+    public Pont(String[] nomsJoueurs)
     {
-        this(ctrl, nomsJoueurs,
+        this(nomsJoueurs,
                 (int) (Math.random() * (MAX_LIGNES - MIN_LIGNES)) + MIN_LIGNES,
                 (int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
                 NB_LOCKS_DEFAULT);
 
         definirVoisins();
-    }
-
-    public Pont(String[] nomsJoueurs)
-    {
-      this(null,nomsJoueurs);
     }
 
     /*-------------------------------*/
@@ -84,12 +68,7 @@ public class Pont
 
     public Pont(String[] nomsJoueurs, Conteneur[][] conteneurs)
     {
-        this(null, nomsJoueurs, conteneurs);
-    }
-
-    public Pont(Controleur ctrl, String[] nomsJoueurs, Conteneur[][] conteneurs)
-    {
-        this(ctrl, nomsJoueurs);
+        this(nomsJoueurs);
         this.conteneurs = conteneurs;
         this.largeur = conteneurs.length;
         this.hauteur = conteneurs[0].length;
@@ -120,17 +99,6 @@ public class Pont
         }
     }
 
-    public void setControleur(Controleur ctrl)
-    {
-      this.ctrl = ctrl;
-    }
-
-    public void setValeur(int x, int y, int valeur)
-    {
-      if(y >= 0 && y < conteneurs.length && x >= 0 && x < conteneurs[0].length)
-        conteneurs[y][x].setValeur(valeur);
-    }
-
     public int getLargeur()
     {
         return largeur;
@@ -148,7 +116,7 @@ public class Pont
 
     public boolean placerLock(int x, int y, int coin)
     {
-        boolean result = true;
+        boolean result;
         Joueur j = this.joueurs[this.joueurCourant];
 
         // Hors plateau
@@ -180,12 +148,13 @@ public class Pont
         boolean peutJouer = false;
         boolean peutPlacer = false;
 
-        Joueur[] joueurs1 = this.joueurs;
-        for (int i = 0; i < joueurs1.length && !peutJouer; i++)
+        for (Joueur joueur : this.joueurs)
         {
-            Joueur joueur = joueurs1[i];
             if (joueur.getNbLocks() > 0)
+            {
                 peutJouer = true;
+                break;
+            }
         }
 
         for (Conteneur[] c1 : conteneurs)

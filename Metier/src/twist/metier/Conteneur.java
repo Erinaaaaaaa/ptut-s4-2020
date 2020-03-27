@@ -20,9 +20,9 @@ public class Conteneur
     public static final int C_SO = 6;
     public static final int C_O  = 7;
 
-    private Lock[] locks;
+    private final Lock[] locks;
 
-    private Conteneur[] voisins;
+    private final Conteneur[] voisins;
 
     private int valeur;
 
@@ -38,8 +38,6 @@ public class Conteneur
       this();
       this.valeur = valeur;
     }
-
-    public void setValeur(int valeur) { this.valeur = valeur; }
 
     /*
      * Positions des locks:
@@ -140,8 +138,6 @@ public class Conteneur
     {
         this.voisins[i] = voisin;
     }
-
-    public Conteneur getVoisin(int i) {return this.voisins[i];}
 
     public int getValeur() { return valeur; }
 }

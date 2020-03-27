@@ -10,11 +10,9 @@ import java.net.InetSocketAddress;
  */
 public class ClientManager
 {
-    private static int NbJoueurs = 0;
 
-    private InetSocketAddress adresse;
-    private String nomJoueur;
-    private int nbJoueur = NbJoueurs++;
+    private final InetSocketAddress adresse;
+    private final String nomJoueur;
 
     private Joueur joueur;
 
@@ -28,8 +26,6 @@ public class ClientManager
     {
         return this.nomJoueur;
     }
-
-    public int getNbJoueur() { return this.nbJoueur; }
 
     public void setJoueur(Joueur joueur)
     {
