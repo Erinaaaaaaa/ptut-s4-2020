@@ -1,7 +1,6 @@
 package twist.ihm.jeu;
 
 import twist.Controleur;
-import twist.ControleurGui;
 import twist.metier.*;
 import twist.ihm.Apparence;
 import twist.util.Logger;
@@ -11,7 +10,6 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 
 /**
  * Représente la grille de jeu dans l'IHM.
@@ -19,11 +17,14 @@ import java.awt.geom.Ellipse2D;
 public class Plateau extends JPanel implements MouseListener
 {
 
-    private final int SIZE = 20;
+    private final int SIZE = 0;
+
+    private final int ARC_RADIUS = 12;
+    private final int GAP_WIDTH  = 4;
     private IhmPlateau ihm;
 
     private Controleur controleur;
-    private double contWidth, contHeight;
+    private int largeurConteneur, hauteurConteneur;
 
     Plateau(IhmPlateau ihm, Controleur controleur)
     {
@@ -46,7 +47,6 @@ public class Plateau extends JPanel implements MouseListener
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        Dimension dim = this.getSize();
         Conteneur conteneur;
         Lock lock;
         double baseX, baseY;
@@ -55,110 +55,140 @@ public class Plateau extends JPanel implements MouseListener
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        contWidth = dim.getWidth() / this.controleur.getHauteurPont() - 1;
-        contHeight = dim.getHeight() / this.controleur.getLargeurPont() - 1;
+        largeurConteneur = this.getWidth() / this.controleur.getLargeurPont();
+        hauteurConteneur = this.getHeight() / this.controleur.getHauteurPont();
 
-        for (int lig = 0; lig < this.controleur.getConteneurs().length; lig++)
-            for (int col = 0; col < this.controleur.getConteneurs()[0].length; col++)
+        for (int lig = 0; lig < this.controleur.getHauteurPont(); lig++)
+            for (int col = 0; col < this.controleur.getLargeurPont(); col++)
             {
 
-                conteneur = this.controleur.getConteneurs()[lig][col];
-                baseX = col * contWidth;
-                baseY = lig * contHeight;
+                conteneur = this.controleur.getConteneurs()[col][lig];
+                baseX = col * largeurConteneur;
+                baseY = lig * hauteurConteneur;
 
-                int coordX[] = {(int) (col * contWidth) - SIZE + 5, (int) ((col + 1) * contWidth) - SIZE + 5,
-                        (int) ((col + 1) * contWidth) - SIZE + 5, (int) ((col) * contWidth) - SIZE + 5};
+                drawConteneur(g2, conteneur, baseX, baseY, largeurConteneur, hauteurConteneur);
+            }
+    }
 
-                int coordY[] = {(int) (lig * contHeight) - SIZE + 5, (int) ((lig) * contHeight) - SIZE + 5,
-                        (int) ((lig + 1) * contHeight) - SIZE + 5, (int) ((lig + 1) * contHeight) - SIZE + 5};
+    private void drawConteneur(Graphics2D g2d, Conteneur conteneur, double x, double y, double largeur, double hauteur)
+    {
+        int startX = (int) x            + GAP_WIDTH;
+        int endX   = (int)(x + largeur) - GAP_WIDTH;
+        int startY = (int) y            + GAP_WIDTH;
+        int endY   = (int)(y + hauteur) - GAP_WIDTH;
+        int midX   = (int)(x + largeur / 2);
+        int midY   = (int)(y + hauteur / 2);
 
-                g2.drawArc(coordX[0], coordY[0], SIZE * 2 - 5, SIZE * 2 - 5, -10, -70);
-                g2.drawLine((int) baseX + SIZE, (int) baseY + 5, coordX[1], (int) baseY + 5);
+        largeur = endX - startX;
+        hauteur = endY - startY;
 
-                g2.drawArc(coordX[1], coordY[1], SIZE * 2 - 5, SIZE * 2 - 5, -90 - 10, -70);
-                g2.drawLine(coordX[1] + (SIZE - 5), (int) baseY + SIZE, coordX[1] + (SIZE - 5), coordY[2]);
+        g2d.drawArc(startX - ARC_RADIUS, startY - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS,    0, -90);
+        g2d.drawArc(endX   - ARC_RADIUS, startY - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS, - 90, -90);
+        g2d.drawArc(endX   - ARC_RADIUS, endY   - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS, -180, -90);
+        g2d.drawArc(startX - ARC_RADIUS, endY   - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS, -270, -90);
 
-                g2.drawArc(coordX[2], coordY[2], SIZE * 2 - 5, SIZE * 2 - 5, -180 - 10, -70);
-                g2.drawLine((int) baseX + SIZE, coordY[2] + (SIZE - 5), coordX[1], coordY[2] + (SIZE - 5));
+        g2d.drawLine(startX + ARC_RADIUS, startY, endX - ARC_RADIUS, startY);
+        g2d.drawLine(startX, startY + ARC_RADIUS, startX, endY - ARC_RADIUS);
+        g2d.drawLine(startX + ARC_RADIUS, endY  , endX - ARC_RADIUS, endY  );
+        g2d.drawLine(endX, startY + ARC_RADIUS, endX, endY - ARC_RADIUS);
 
-                g2.drawArc(coordX[3], coordY[3], SIZE * 2 - 5, SIZE * 2 - 5, -270 - 10, -70);
-                g2.drawLine((int) baseX + 5, (int) baseY + SIZE, (int) baseX + 5, coordY[2]);
+        for (int i = 0; i < 4; i++)
+        {
+            if (conteneur.getLock(i) != null)
+            {
+                int lockX = 0, lockY = 0;
 
-                for (int i = 0; i < conteneur.getLocks().length; i++)
+                switch (i)
                 {
-                    lock = conteneur.getLocks()[i];
-                    if (lock == null || lock.getJoueur() == null) continue;
-                    switch (i)
-                    {
-                        default:
-                        case 0: x = 0; y = 0; break;
-                        case 1: x = 0; y = 1; break;
-                        case 2: x = 1; y = 1; break;
-                        case 3: x = 1; y = 0; break;
-                    }
-                    g2.setColor(Apparence.getJoueurCouleur(this.controleur.getNumeroJoueur(lock.getJoueur())));
-                    Ellipse2D.Double c = new Ellipse2D.Double(((col + x) * contWidth) - (SIZE - 3) / 2, ((lig + y) * contHeight) - (SIZE - 3) / 2, SIZE, SIZE);
-                    g2.fill(c);
-                    if (conteneur.joueurMajoritaire() != null)
-                    {
-                        g2.setColor(Apparence.getJoueurCouleur(this.controleur.getNumeroJoueur(conteneur.joueurMajoritaire())));
-                        Ellipse2D.Double c1 = new Ellipse2D.Double(baseX + contWidth / 2 - (SIZE), baseY + contHeight / 2 - (SIZE), SIZE * 2, SIZE * 2);
-                        g2.fill(c1);
-                    }
+                    case 0:
+                        lockX = startX - GAP_WIDTH; lockY = startY - GAP_WIDTH; break;
+                    case 1:
+                        lockX = endX + GAP_WIDTH; lockY = startY - GAP_WIDTH; break;
+                    case 2:
+                        lockX = endX + GAP_WIDTH; lockY = endY + GAP_WIDTH; break;
+                    case 3:
+                        lockX = startX - GAP_WIDTH; lockY = endY + GAP_WIDTH; break;
                 }
 
-                g2.setColor(Color.black);
-                String valConteneur = "" + conteneur.getValeur();
-                FontMetrics fm = g2.getFontMetrics();
-                Rectangle2D r = fm.getStringBounds(valConteneur, g2);
-                int x1 = (int) (((baseX + (col + 1) * contWidth) - (int) r.getWidth()) / 2);
-                int y1 = (int) (((baseY + (lig + 1) * contHeight) - (int) r.getHeight()) / 2 + fm.getAscent());
-                g2.drawString(valConteneur, x1, y1);
+                int joueur = controleur.getNumeroJoueur(conteneur.getLock(i).getJoueur());
+
+                g2d.setColor(Apparence.getJoueurCouleur(joueur));
+
+                g2d.fillOval(lockX - ARC_RADIUS, lockY - ARC_RADIUS, 2*ARC_RADIUS, 2*ARC_RADIUS);
             }
+        }
+
+        Joueur joueurMajoritaire = conteneur.joueurMajoritaire();
+
+        if (joueurMajoritaire != null)
+        {
+            int joueur = controleur.getNumeroJoueur(joueurMajoritaire);
+
+            g2d.setColor(Apparence.getJoueurCouleur(joueur));
+
+            g2d.fillOval(startX + ARC_RADIUS, startY + ARC_RADIUS, (int)(largeur - 2 * ARC_RADIUS), (int)(hauteur - 2 * ARC_RADIUS));
+        }
+
+        g2d.setColor(Color.black);
+
+        FontMetrics metrics = g2d.getFontMetrics();
+
+        String valeurConteneur = String.valueOf(conteneur.getValeur());
+
+        Rectangle2D bounds = metrics.getStringBounds(String.valueOf(conteneur.getValeur()), g2d);
+
+        g2d.drawString(valeurConteneur, (int)(midX - (bounds.getWidth() / 2)), (int)(midY + (bounds.getHeight() / 2)));
     }
 
     public void mouseClicked(MouseEvent e)
     {
-        boolean locker = false;
-        int lig = 0;
-        int col = 0;
-        int lMax = this.controleur.getConteneurs().length + 1;
-        int cMax = this.controleur.getConteneurs()[0].length + 1;
-        for (lig = 0; lig < lMax && !locker; lig++)
-            for (col = 0; col < cMax && !locker; col++)
-            {
-                double baseX = col * contWidth;
-                double baseY = lig * contHeight;
-                if ((e.getX() < baseX + SIZE && e.getX() > baseX - SIZE) &&
-                        (e.getY() < baseY + SIZE && e.getY() > baseY - SIZE))
-                {
-                    locker = true;
-                }
-            }
-        if (locker)
+        int col = e.getX() / largeurConteneur;
+        int lig = e.getY() / hauteurConteneur;
+
+        int x = e.getX() - col * largeurConteneur;
+        int y = e.getY() - lig * hauteurConteneur;
+
+        // Gestion des situations de bord
+        if (col >= this.controleur.getLargeurPont())
         {
-            Logger.information("[GUI] Cliqué sur: " + lig + " : " + col);
-            if (lig == lMax && col == cMax)
-            {
-                this.controleur.jouer(lMax - 2, cMax - 2, 2);
-            } else if (lig == lMax && col < cMax)
-            {
-                this.controleur.jouer(lMax - 2, col - 1, 1);
-            } else if (lig < lMax && col == cMax)
-            {
-                this.controleur.jouer(lig - 1, cMax - 2, 3);
-            }
-				/*else if (lig ==  1 && col ==  cMax) {this.controleur.jouer(lig-1, cMax-2, 0);}
-				else if (lig ==  1 && col == 11) {this.controleur.jouer(lig-1, col-1, 1);}*/
-            else
-            {
-                this.controleur.jouer(lig - 1, col - 1, 0);
-            }
-        } else
-        {
-            Logger.information("[GUI] Pas cliqué sur un lock");
-            this.controleur.jouer(-1, -1, 0);
+            col--;
+            x += largeurConteneur;
         }
+
+        if (lig >= this.controleur.getHauteurPont())
+        {
+            lig--;
+            y += hauteurConteneur;
+        }
+
+        boolean surCoin = false;
+        int coin = -1;
+
+        // Détermination du coin cliqué
+
+        // Coin supérieur gauche
+        if (x <= ARC_RADIUS && y <= ARC_RADIUS)
+        {
+            coin = 0;
+        }
+        // Coin supérieur droit
+        else if (x >= (largeurConteneur - ARC_RADIUS) && y <= ARC_RADIUS)
+        {
+            coin = 1;
+        }
+        // Coin inférieur droit
+        else if (x >= (largeurConteneur - ARC_RADIUS) && y >= (hauteurConteneur - ARC_RADIUS))
+        {
+            coin = 2;
+        }
+        // Coin inférieur gauche
+        else if (x <= ARC_RADIUS && y >= (hauteurConteneur - ARC_RADIUS))
+        {
+            coin = 3;
+        }
+
+        Logger.information("Jeu sur Case (" + col + ":" + lig + ") coin " + coin);
+        controleur.jouer(col, lig, coin);
     }
 
     public void mouseEntered(MouseEvent e) {}
