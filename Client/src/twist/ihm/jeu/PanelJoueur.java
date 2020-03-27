@@ -90,7 +90,6 @@ public class PanelJoueur extends JPanel
             return;
         }
 				icon = new ImageIcon(icon.getImage().getScaledInstance(100, 158, Image.SCALE_SMOOTH));
-				System.out.println(icon.toString());
 				this.removeAll();
 				this.infoJoueur.setText(setInfoJoueur());
 				this.add(new JLabel(icon));
