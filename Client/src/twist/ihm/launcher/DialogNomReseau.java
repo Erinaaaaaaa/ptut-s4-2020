@@ -34,7 +34,7 @@ public class DialogNomReseau extends JDialog implements ActionListener
         this.setModal(true);
 
         this.txtNom = new JTextField();
-        this.txtHost = new JTextField();
+        this.txtHost = new JTextField("localhost");
         this.spinnPort = new SpinnerNumberModel(2000, 1024, 65535, 1);
 
         this.panCentre = new JPanel();
