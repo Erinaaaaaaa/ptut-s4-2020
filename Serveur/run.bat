@@ -26,5 +26,4 @@ java -cp ./out;../Metier/lib/jansi-1.18.jar twist.Serveur %*
 echo.
 echo -----  FIN EXECUTION  -----
 
-
 pause
