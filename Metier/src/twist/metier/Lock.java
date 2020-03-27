@@ -2,7 +2,7 @@ package twist.metier;
 
 /*
  * Classe Lock.java
- * CLasse permettant d'attribué un joueur au Lock
+ * CLasse permettant d'attribuer un joueur au Lock
  */
 
 public class Lock

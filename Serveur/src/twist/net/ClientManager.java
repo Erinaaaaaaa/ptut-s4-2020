@@ -4,6 +4,10 @@ import twist.metier.Joueur;
 
 import java.net.InetSocketAddress;
 
+/*
+ * Classe ClientManager.java
+ * Gère quelques informations de bases relatives au Client connecté
+ */
 public class ClientManager
 {
     private static int NbJoueurs = 0;

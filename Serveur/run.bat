@@ -22,7 +22,7 @@ del exclude.tmp > NUL
 
 echo ----- DEBUT EXECUTION -----
 echo.
-java -cp ./out;../Metier/lib/jansi-1.18.jar twist.Main
+java -cp ./out;../Metier/lib/jansi-1.18.jar twist.Serveur %*
 echo.
 echo -----  FIN EXECUTION  -----
 

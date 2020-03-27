@@ -20,7 +20,9 @@ public class ServeurJeu
 {
     private ServeurUdp serveur;
 
-    private int nbJoueurs;
+    private final int nbJoueurs = 2;
+
+    private final int timeout;
 
     private HashMap<InetSocketAddress, ClientManager> hmClients;
     private ArrayList<ClientManager> alClients;
@@ -29,10 +31,10 @@ public class ServeurJeu
 
     private Pont pont;
 
-    public ServeurJeu(int port, int nbJoueurs) throws SocketException
+    public ServeurJeu(int port, int timeout) throws SocketException
     {
         serveur = new ServeurUdp(port);
-        this.nbJoueurs = nbJoueurs;
+        this.timeout = 1000 * timeout;
     }
 
     public void run() throws IOException
@@ -119,8 +121,7 @@ public class ServeurJeu
 
         // Etape 3: jeu
         boolean inviteEnvoyee = false;
-        // 60 secondes
-        Timer t = new Timer(1000 * 60, e -> {
+        Timer t = new Timer(timeout, e -> {
             try
             {
                 // On sait qu'il n'y a que deux joueurs.

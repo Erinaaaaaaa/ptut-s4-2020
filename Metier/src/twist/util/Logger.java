@@ -3,6 +3,11 @@ package twist.util;
 import static org.fusesource.jansi.Ansi.*;
 import org.fusesource.jansi.AnsiConsole;
 
+/*
+ * Classe utilitaire Logger.java
+ * Utilise la librarie jansi-1.18.jar pour formater et colorier les messages
+ * d'information dans la console Windows
+ */
 public class Logger
 {
     // 0 - Très verbeux ; 4 - Erreurs fatales uniquement

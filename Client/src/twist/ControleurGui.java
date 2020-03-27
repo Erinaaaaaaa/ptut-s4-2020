@@ -10,6 +10,7 @@ import twist.util.Logger;
 /*
  * Classe ControleurGui.java
  * Classe se servant de Controleur.java comme référence et qui permet de lancer le jeu en mode GUI
+ * Gère une partie locale
  */
 
 public class ControleurGui extends Controleur

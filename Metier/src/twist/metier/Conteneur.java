@@ -40,6 +40,7 @@ public class Conteneur
     }
 
     public void setValeur(int valeur) { this.valeur = valeur; }
+
     /*
      * Positions des locks:
      *        0 ----- 1
@@ -135,11 +136,6 @@ public class Conteneur
     public Lock getLock(int i) {return this.locks[i];}
     public Lock[] getLocks() {return locks;}
 
-    /**
-     * Définit le voisin à la position par i.
-     * @param i Position du voisin
-     * @param voisin Voisin
-     */
     public void setVoisin(int i, Conteneur voisin)
     {
         this.voisins[i] = voisin;

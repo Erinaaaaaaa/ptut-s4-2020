@@ -5,8 +5,8 @@ import java.net.InetSocketAddress;
 
 /*
  * Classe Message.java
- * Classe servant de base aux messages envoyés par le serveur
- * On y définit le message envoyé ainsi que l'adresse de destination
+ * Classe servant de base aux messages envoyés et reçus par le serveur
+ * On y définit le message ainsi que l'adresse
  */
 
 public class Message

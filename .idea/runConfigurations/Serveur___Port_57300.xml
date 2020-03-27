@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Serveur - Port 57300" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="twist.Main" />
+    <option name="MAIN_CLASS_NAME" value="twist.Serveur" />
     <module name="Serveur" />
     <extension name="coverage">
       <pattern>
