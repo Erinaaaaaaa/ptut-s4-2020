@@ -5,6 +5,12 @@ import twist.util.Logger;
 import java.io.IOException;
 import java.net.*;
 
+/*
+ * Classe ServeurUdp.java
+ * Classe de base pour le serveur en protocole UDP
+ * Cette classe permettra les intéractions avec le ClientUdp
+ */
+
 public class ServeurUdp
 {
     private final static int MAX_PACKET_SIZE = 2048;

@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+ * Classe LecteurThread.java
+ * Classe permettant de lire les messages reçu par le serveur
+ * Envoi au controleur ce qu'il doit être fait
+ */
+
 public class LecteurThread implements Runnable
 {
     private ControleurReseau ctrl;

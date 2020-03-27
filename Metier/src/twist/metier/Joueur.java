@@ -1,5 +1,10 @@
 package twist.metier;
 
+/*
+ * Classe Joueur.java
+ * Classe gérant les joueurs, c'est-à-dire leur nom ainsi que leurs locks de départ et quand ils sont joués
+ */
+
 public class Joueur
 {
     private String nom;

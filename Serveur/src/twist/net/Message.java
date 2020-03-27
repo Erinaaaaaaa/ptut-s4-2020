@@ -3,6 +3,12 @@ package twist.net;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
+/*
+ * Classe Message.java
+ * Classe servant de base aux messages envoyés par le serveur
+ * On y définit le message envoyé ainsi que l'adresse de destination
+ */
+
 public class Message
 {
     private String message;

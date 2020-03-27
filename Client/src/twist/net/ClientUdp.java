@@ -5,6 +5,12 @@ import twist.util.Logger;
 import java.io.IOException;
 import java.net.*;
 
+/*
+ * Classe ClientUdp.java
+ * Classe de base pour se connecter au serveur
+ * Classe servant aux intéractions avec le ServeurUdp
+ */
+
 public class ClientUdp
 {
     private final int PACKET_MAX_LENGTH = 350;

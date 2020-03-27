@@ -9,6 +9,12 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+ * Classe ServeurJeu.java
+ * Classe gérant le jeu côté serveur avec la récupération des noms des joueurs
+ * Elle génère également la map qu'elle enverra aux joueurs
+ */
+
 public class ServeurJeu
 {
     private ServeurUdp serveur;
@@ -95,7 +101,7 @@ public class ServeurJeu
                     if (x != pont.getLargeur() - 1)
                         sb.append(':');
                 }
-                
+
                 sb.append('|');
             }
 

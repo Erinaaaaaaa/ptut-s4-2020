@@ -3,6 +3,11 @@ package twist.metier;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Classe Conteneur.java
+ * Classe gérant les conteneurs, c'est-à-dire leur valeur, leurs voisins ainsi que le joueur majoritaire
+ */
+
 public class Conteneur
 {
     // Position des conteneurs voisins

@@ -10,6 +10,13 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+/*
+ * Classe ControleurReseau.java
+ * Classe se servant de Controleur comme référence
+ * Cette classe permet de lancer un Client
+ * Vous aurez la possibilité de jouer en local ou en réseau
+ */
+
 public class ControleurReseau extends Controleur
 {
     private ClientUdp client;

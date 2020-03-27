@@ -4,6 +4,11 @@ import twist.metier.Conteneur;
 import twist.metier.Joueur;
 import twist.metier.Pont;
 
+/*
+ * Classe abstraite Controleur.java
+ * Classe servant de base aux autres Controleur, GUI ou Réseau
+ */
+
 public abstract class Controleur
 {
     protected Pont pont;

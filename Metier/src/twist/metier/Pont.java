@@ -2,6 +2,12 @@ package twist.metier;
 
 import twist.Controleur;
 
+/*
+ * Classe Pont.java
+ * Classe générale, regroupant le principal du jeu, c'est-à-dire les joueurs et les conteneurs
+ * Cette classe gère également le jeu
+ */
+
 public class Pont
 {
     private static final int MIN_LIGNES   = 5;
