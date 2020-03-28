@@ -133,7 +133,7 @@ public class Pont
       // Hors plateau
       if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
           return false;
-          
+
       //Coin coinLibre
       if(this.conteneurs[x][y].coinLibre(coin))
         return true;
@@ -297,4 +297,16 @@ public class Pont
 		this.faireJouerIA();
 		return true;
 	}
+
+	//IA min max
+	public boolean anullerCoup(int x, int y, int coin){
+			// Hors plateau
+			boolean result;
+			if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
+					result = false;
+			else
+					result = this.conteneurs[x][y].annulerLock(coin);
+			  return result;
+		}
+
 }

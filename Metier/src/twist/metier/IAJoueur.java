@@ -50,4 +50,71 @@ public class IAJoueur extends Joueur {
 	private int rand(int min, int max) {
 		 return (int) (Math.random()*(max+min))+min;
 	}
+
+	//IA min max
+
+	private void minMax(Pont pontfictice, int profondeur){
+		int max_val = -1000;
+		int[] coup = {0,0,0};
+		for (int i=0;i<this.pont.getConteneurs().length ;i++ ) {
+			for (int j=0;j<this.pont.getConteneurs()[0].length ;j++ ) {
+				for (int k=0;k<4 ;k++ ) {
+					pontfictice.placerLock(i,j,k);
+					int val = max(pontfictice,profondeur-1);
+					if (val>max_val) {
+						max_val = val;
+						coup[0]=i;coup[1]=j;coup[2]=k;
+					}
+					pontfictice.anullerCoup(i, j, k);
+				}
+			}
+		}
+		this.pont.placerLock(coup[0], coup[1], coup[2]);
+	}
+
+	private int min(Pont pontfictice, int profondeur){
+		if (profondeur == 0 || pontfictice.partieTerminee()) {
+			return eval(pontfictice);
+		}
+
+		int min_val = 1000;
+		for (int i=0;i<this.pont.getConteneurs().length ;i++ ) {
+			for (int j=0;j<this.pont.getConteneurs()[0].length ;j++ ) {
+				for (int k=0;k<4 ;k++ ) {
+					pontfictice.placerLock(i,j,k);
+					int val = max(pontfictice,profondeur-1);
+					if (val<min_val) {
+						min_val = val;
+					}
+					pontfictice.anullerCoup(i, j, k);
+				}
+			}
+		}
+		return min_val;
+	}
+
+	private int max(Pont pontfictice, int profondeur){
+		if (profondeur == 0 || pontfictice.partieTerminee()) {
+			return eval(pontfictice);
+		}
+
+		int max_val = 1000;
+		for (int i=0;i<this.pont.getConteneurs().length ;i++ ) {
+			for (int j=0;j<this.pont.getConteneurs()[0].length ;j++ ) {
+				for (int k=0;k<4 ;k++ ) {
+					pontfictice.placerLock(i,j,k);
+					int val = min(pontfictice,profondeur-1);
+					if (val>max_val) {
+						max_val = val;
+					}
+					pontfictice.anullerCoup(i, j, k);
+				}
+			}
+		}
+		return max_val;
+	}
+
+	private int eval(Pont pontfictice){
+		return (int)Math.random()*1000;
+	}
 }

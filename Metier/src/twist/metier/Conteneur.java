@@ -147,4 +147,53 @@ public class Conteneur
     }
 
     public int getValeur() { return valeur; }
+
+		//IA min max
+
+		public boolean annulerLock(int coin)
+    {
+        // Valeur attendue: 0-3
+        annulerLockReference(coin);
+        switch (coin)
+        {
+            case 0:
+                {
+                    if(voisins[C_O]  != null) voisins[C_O] .annulerLockReference(1);
+                    if(voisins[C_NO] != null) voisins[C_NO].annulerLockReference(2);
+                    if(voisins[C_N]  != null) voisins[C_N] .annulerLockReference(3);
+                }
+                break;
+            case 1:
+                {
+									if(voisins[C_N]  != null) voisins[C_N] .annulerLockReference(2);
+									if(voisins[C_NE] != null) voisins[C_NE].annulerLockReference(3);
+									if(voisins[C_E]  != null) voisins[C_E] .annulerLockReference( 0);
+                }
+                break;
+            case 2:
+                {
+                  if(voisins[C_E]  != null)  voisins[C_E] .annulerLockReference(3);
+                  if(voisins[C_SE] != null)  voisins[C_SE].annulerLockReference(0);
+                  if(voisins[C_S]  != null)  voisins[C_S] .annulerLockReference(1);
+                }
+                break;
+            case 3:
+                {
+                  if(voisins[C_S]  != null)  voisins[C_S] .annulerLockReference(0);
+                  if(voisins[C_SO] != null)  voisins[C_SO].annulerLockReference(1);
+                  if(voisins[C_O]  != null)  voisins[C_O] .annulerLockReference(2);
+                }
+                break;
+            default: return false;
+        }
+
+        return true;
+    }
+		private boolean annulerLockReference(int coin)
+    {
+			if (this.locks[coin] != null) {
+				this.locks[coin] = null;
+			}
+        return true;
+    }
 }
