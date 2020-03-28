@@ -87,10 +87,17 @@ public class Conteneur
         return true;
     }
 
+    public boolean coinLibre(int coin) {
+      if (this.locks[coin] != null)
+          return false;
+
+      return true;
+    }
+
     private boolean putLockReference(int coin, Lock lock)
     {
-        if (this.locks[coin] != null)
-            return false;
+      if (this.locks[coin] != null)
+          return false;
 
         this.locks[coin] = lock;
         return true;
