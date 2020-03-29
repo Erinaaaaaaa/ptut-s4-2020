@@ -63,7 +63,7 @@ public class ControleurIA extends ControleurReseau
 			System.out.println("1. Aléatoire");
 			System.out.println("2. Heuristique (deux coups aléatoires, le meilleur des deux)");
 			System.out.println("3. Goinfre (le meilleur coup disponible immédiatement)");
-			System.out.println("4. Minimax (WIP)");
+			System.out.println("4. Minimax (Un peu plus intelligent mais le plus lourd)");
 			System.out.print("Votre choix: ");
 			int ia = sc.nextInt();
 
@@ -79,7 +79,11 @@ public class ControleurIA extends ControleurReseau
 					new ControleurIA(host, port, "Goinfre de service", new Goinfre());
 					break;
 				case 4:
-					new ControleurIA(host, port, "Mindfuck en folie", new Minimax(3));
+					System.out.print("Niveaux Minimax (2-6, recommandé: 3):");
+					int niveaux = sc.nextInt();
+					if (niveaux > 6) niveaux = 6;
+					if (niveaux < 2) niveaux = 2;
+					new ControleurIA(host, port, "Big brain lv." + niveaux, new Minimax(niveaux));
 					break;
 			}
 
