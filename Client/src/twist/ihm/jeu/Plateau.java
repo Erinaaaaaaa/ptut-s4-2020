@@ -3,6 +3,7 @@ package twist.ihm.jeu;
 import twist.Controleur;
 import twist.metier.*;
 import twist.ihm.Apparence;
+import twist.net.ControleurIA;
 import twist.util.Logger;
 
 import java.awt.geom.Rectangle2D;
@@ -131,6 +132,8 @@ public class Plateau extends JPanel implements MouseListener
 
     public void mouseClicked(MouseEvent e)
     {
+        if (controleur instanceof ControleurIA) return;
+
         int col = e.getX() / largeurConteneur;
         int lig = e.getY() / hauteurConteneur;
 
