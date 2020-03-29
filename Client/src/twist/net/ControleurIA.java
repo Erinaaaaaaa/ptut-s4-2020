@@ -3,7 +3,9 @@ package twist.net;
 import twist.Controleur;
 import twist.ihm.jeu.IhmPlateau;
 import twist.metier.Conteneur;
+import twist.metier.Coup;
 import twist.metier.Pont;
+import twist.metier.ia.*;
 import twist.util.Logger;
 
 import java.io.IOException;
@@ -14,72 +16,78 @@ import java.util.*;
 
 public class ControleurIA extends ControleurReseau
 {
+	private IA intelligence;
 
-  public ControleurIA(String host, boolean estIA, int port, String nom) throws SocketException, UnknownHostException
-  {
-      super(host,estIA,port,nom);
-  }
-
-  @Override
-  public void jouer(int col, int lig, int coin)
-  {
-      // pas notre tour
-      if (this.pont.getJoueurActif() != this.indiceJoueurLocal) return;
-
-      try
-      {
-          String message = new String(new char[]{(char)('1' + lig),(char)('A' + col),(char)('1' + coin)});
-          client.envoyer(message);
-          super.jouer(col, lig, coin);
-          majIhm();
-      } catch (IOException ex)
-      {
-          Logger.error("Impossible d'envoyer au serveur un message de jeu!");
-      }
-
-  }
-
-  @Override
-  public void jouer()
-  {
-    try{Thread.spleep(500);}catch(Exception e){}
-    int x,y,coin;
-		do {
-		    x = rand( 0, pont.getLargeur()-1 );
-        y = rand( 0, pont.getHauteur()-1 );
-        coin = (int) (Math.random()*4);
-
-	 }while(this.pont.getConteneurs()[x][y].getLocks()[coin] != null );
-
-   jouer(x,y,coin);
-  }
-
-  private int rand(int min, int max) {
-
-		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
-		}
-
-		Random r = new Random();
-		return r.nextInt((max - min) + 1) + min;
+	public ControleurIA(String host, int port, String nom, IA intelligence) throws SocketException, UnknownHostException
+	{
+		super(host, port, nom);
+		this.intelligence = intelligence;
 	}
 
-  public static void main(String[] args)
-  {
-    try {
+	public void jouer()
+	{
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 
-      Scanner sc = new Scanner(System.in);
-      String host = "";
-      int port = 0;
+		Coup next = intelligence.next(this.pont);
 
-      System.out.print("Host : ");
-      host = sc.nextLine();
-      System.out.print("Port : ");
-      port = Integer.parseInt(sc.nextLine());
+		this.jouer(next.getColonne(), next.getLigne(), next.getCoin());
+	}
 
-      new ControleurIA(host, true, port, "Mr. IA");
+	@Override
+	public boolean estIA()
+	{
+		return true;
+	}
 
-    } catch(Exception e){}
-  }
+	public static void main(String[] args)
+	{
+		try
+		{
+
+			Scanner sc = new Scanner(System.in);
+			String host;
+			int port;
+
+			System.out.print("Host : ");
+			host = sc.nextLine();
+			System.out.print("Port : ");
+			port = sc.nextInt();
+			System.out.println("Choix de l'IA:");
+			System.out.println("1. Aléatoire");
+			System.out.println("2. Heuristique (deux coups aléatoires, le meilleur des deux)");
+			System.out.println("3. Goinfre (le meilleur coup disponible immédiatement)");
+			System.out.println("4. Minimax (WIP)");
+			System.out.print("Votre choix: ");
+			int ia = sc.nextInt();
+
+			switch (ia)
+			{
+				case 1:
+					new ControleurIA(host, port, "Mr. Aléa", new Aleatoire());
+					break;
+				case 2:
+					new ControleurIA(host, port, "Le ristique", new Heuristique());
+					break;
+				case 3:
+					new ControleurIA(host, port, "Goinfre de service", new Goinfre());
+					break;
+				case 4:
+					new ControleurIA(host, port, "Mindfuck en folie", new Minimax(3));
+					break;
+			}
+
+
+		}
+		catch (Exception e)
+		{
+		}
+	}
 
 }

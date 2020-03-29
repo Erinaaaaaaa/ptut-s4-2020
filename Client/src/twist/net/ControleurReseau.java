@@ -27,11 +27,10 @@ public class ControleurReseau extends Controleur
 
 	protected boolean estIA;
 
-	public ControleurReseau(String host, Boolean estIA, int port, String nom) throws SocketException, UnknownHostException
+	public ControleurReseau(String host, int port, String nom) throws SocketException, UnknownHostException
 	{
 		Logger.information("Connection à " + host + ":" + port + " en tant que " + nom);
 		this.nomJoueur = nom;
-		this.estIA = estIA;
 		client = new ClientUdp(host, port);
 		preparer();
 	}
@@ -96,7 +95,6 @@ public class ControleurReseau extends Controleur
 
 		this.pont = new Pont(this, noms, ia, conteneurs);
 		this.ihm = new IhmPlateau(this);
-		this.pont.faireJouerIA();
 	}
 
 	@Override
@@ -118,8 +116,6 @@ public class ControleurReseau extends Controleur
 		}
 
 	}
-
-	public void jouer(){}
 
 	public void jouerLocal(int col, int lig, int coin)
 	{
@@ -155,5 +151,5 @@ public class ControleurReseau extends Controleur
 		return this.client.estConnecte();
 	}
 
-	public boolean estIA() { return this.estIA; }
+	public boolean estIA() { return false; }
 }

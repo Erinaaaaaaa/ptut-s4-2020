@@ -51,7 +51,7 @@ public class LecteurThread implements Runnable
 							this.ctrl.setJoueurLocalActif();
 							if (this.ctrl.estIA())
                             {
-                                this.ctrl.jouer();
+								((ControleurIA)this.ctrl).jouer();
                             }
 						}
 						break;

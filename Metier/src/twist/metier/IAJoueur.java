@@ -4,12 +4,9 @@ import java.util.*;
 
 public class IAJoueur extends Joueur
 {
-	private Pont pont;
-
 	public IAJoueur(Pont pont, String nom, int nbLocks)
 	{
-		super(nom, nbLocks);
-		this.pont = pont;
+		super(pont, nom, nbLocks);
 	}
 
 	public void jouer()

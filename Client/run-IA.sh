@@ -18,6 +18,6 @@ rm compile.list
 
 echo ----- DEBUT EXECUTION -----
 echo
-java -cp ./out:../Metier/lib/jansi-1.18.jar twist.Serveur "$@"
+java -cp ./out:../Metier/lib/jansi-1.18.jar twist.net.ControleurIA "$@"
 echo
 echo -----  FIN EXECUTION  -----

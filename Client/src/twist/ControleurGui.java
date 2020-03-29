@@ -18,7 +18,6 @@ public class ControleurGui extends Controleur
     {
         this.pont = new Pont(this,tabNomJoueur, tabIA, nbCol, nbLigne, nbLock);
         this.plateau = new IhmPlateau(this);
-				this.pont.faireJouerIA();
     }
 
     @Override
@@ -27,7 +26,6 @@ public class ControleurGui extends Controleur
         super.jouer(x, y, coin);
         Logger.information(x + " : " + y + " dans le coin " + coin);
         this.majIhm();
-				pont.faireJouerIA();
         if (this.partieTerminee())
             this.plateau.fin();
     }

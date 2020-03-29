@@ -100,7 +100,7 @@ public class DialogNomReseau extends JDialog implements ActionListener
                 try
                 {
                     this.ihm.dispose();
-                    new ControleurReseau(this.txtHost.getText(),intelligents.isSelected(), (int)this.spinnerPort.getValue(), this.txtNom.getText());
+                    new ControleurReseau(this.txtHost.getText(), (int)this.spinnerPort.getValue(), this.txtNom.getText());
                 }
                 catch (SocketException | UnknownHostException ex)
                 {

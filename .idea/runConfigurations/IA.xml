@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="IA" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="twist.net.ControleurIA" />
+    <module name="Client" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

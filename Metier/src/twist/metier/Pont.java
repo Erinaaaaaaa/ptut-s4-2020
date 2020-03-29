@@ -54,16 +54,17 @@ public class Pont
 		this.joueurs = new Joueur[nomsJoueurs.length];
 
 		for (int i = 0; i < nomsJoueurs.length; i++)
-			if (tabIA[i])
+		{
+			/*if (tabIA[i])
 			{
 				System.out.println("Joueur " + i + " : IA");
 				this.joueurs[i] = new IAJoueur(this, nomsJoueurs[i], nbLocks);
 			} else
-			{
-				System.out.println("Joueur " + i + " : Joueur");
-				this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
-			}
-
+			{*/
+			System.out.println("Joueur " + i + " : Joueur");
+			this.joueurs[i] = new Joueur(this, nomsJoueurs[i], nbLocks);/*
+			}*/
+		}
 		this.joueurCourant = 0;
 
 		definirVoisins();
@@ -138,10 +139,7 @@ public class Pont
 			return false;
 
 		//Coin coinLibre
-		if (this.conteneurs[x][y].coinLibre(coin))
-			return true;
-
-		return false;
+		return this.conteneurs[x][y].coinLibre(coin);
 	}
 
 	public boolean jouer(int x, int y, int coin)
@@ -275,44 +273,16 @@ public class Pont
 		this.joueurCourant = joueur;
 	}
 
-	public void faireJouerIA()
-	{
-		if (joueurs[this.joueurCourant] instanceof IAJoueur)
-		{
-			((IAJoueur) joueurs[this.joueurCourant]).jouer();
-			this.ctrl.majIhm();
-		}
-		new Thread(() ->
-		{
-			try
-			{
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-
-			if (!this.nouveauTour())
-			{
-				this.ctrl.finPartie();
-			}
-		}).start();
-	}
-
-	public boolean nouveauTour()
-	{
-		if (partieTerminee()) return false;
-
-		this.faireJouerIA();
-		return true;
-	}
-
 	//IA min max
 	public boolean simulerCoup(int x, int y, int coin)
 	{
+		return simulerCoup(x, y, coin, false);
+	}
+
+	public boolean simulerCoup(int x, int y, int coin, boolean adversaire)
+	{
 		boolean result;
-		Joueur j = this.joueurs[this.joueurCourant];
+		Joueur j = this.joueurs[adversaire ? 1-this.joueurCourant : this.joueurCourant];
 
 		// Hors plateau
 		if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
@@ -333,4 +303,15 @@ public class Pont
 		return result;
 	}
 
+	public int evaluerCoup(int x, int y, int coin, int i)
+	{
+		if (this.joueurs.length != 2) return -214748368;
+		simulerCoup(x, y, coin);
+
+		int difference = getScoreJoueur(i) - getScoreJoueur(1 - i);
+
+		annulerCoup(x, y, coin);
+
+		return difference;
+	}
 }
