@@ -51,7 +51,7 @@ public class LecteurThread implements Runnable
 							this.ctrl.setJoueurLocalActif();
 							if (this.ctrl.estIA())
                             {
-                                // Code de jeu en tant qu'IA
+                                this.ctrl.jouer();
                             }
 						}
 						break;

@@ -19,13 +19,13 @@ import java.net.UnknownHostException;
 
 public class ControleurReseau extends Controleur
 {
-	private final ClientUdp client;
-	private IhmPlateau ihm;
+	protected final ClientUdp client;
+	protected IhmPlateau ihm;
 
-	private final String nomJoueur;
-	private int indiceJoueurLocal;
+	protected final String nomJoueur;
+	protected int indiceJoueurLocal;
 
-	private boolean estIA;
+	protected boolean estIA;
 
 	public ControleurReseau(String host, Boolean estIA, int port, String nom) throws SocketException, UnknownHostException
 	{
@@ -118,6 +118,8 @@ public class ControleurReseau extends Controleur
 		}
 
 	}
+
+	public void jouer(){}
 
 	public void jouerLocal(int col, int lig, int coin)
 	{
