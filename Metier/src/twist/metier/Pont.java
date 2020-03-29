@@ -1,18 +1,19 @@
 package twist.metier;
+
 import twist.Controleur;
 
 /*
-* Classe Pont.java
-* Classe générale, regroupant le principal du jeu, c'est-à-dire les joueurs et les conteneurs
-* Cette classe gère également le jeu
-*/
+ * Classe Pont.java
+ * Classe générale, regroupant le principal du jeu, c'est-à-dire les joueurs et les conteneurs
+ * Cette classe gère également le jeu
+ */
 
 public class Pont
 {
-	private static final int MIN_LIGNES   = 5;
+	private static final int MIN_LIGNES = 5;
 	private static final int MIN_COLONNES = 5;
 
-	private static final int MAX_LIGNES   = 10;
+	private static final int MAX_LIGNES = 10;
 	private static final int MAX_COLONNES = 10;
 
 	private static final int NB_LOCKS_DEFAULT = 20;
@@ -33,11 +34,12 @@ public class Pont
 
 	//TODO : CLEAN LES CONSTRUCTEURS DU PONT
 
-	public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks){
-		this(null, nomsJoueurs,new Boolean[]{false,false} , largeur, hauteur, nbLocks);
+	public Pont(String[] nomsJoueurs, int largeur, int hauteur, int nbLocks)
+	{
+		this(null, nomsJoueurs, new Boolean[]{false, false}, largeur, hauteur, nbLocks);
 	}
 
-	public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] tabIA, int largeur, int hauteur, int nbLocks)
+	public Pont(Controleur ctrl, String[] nomsJoueurs, Boolean[] tabIA, int largeur, int hauteur, int nbLocks)
 	{
 		this.ctrl = ctrl;
 		this.largeur = largeur;
@@ -46,32 +48,33 @@ public class Pont
 		this.conteneurs = new Conteneur[largeur][hauteur];
 
 		for (int x = 0; x < largeur; x++)
-		for (int y = 0; y < hauteur; y++)
-		this.conteneurs[x][y] = new Conteneur();
+			for (int y = 0; y < hauteur; y++)
+				this.conteneurs[x][y] = new Conteneur();
 
 		this.joueurs = new Joueur[nomsJoueurs.length];
 
 		for (int i = 0; i < nomsJoueurs.length; i++)
-		if (tabIA[i]) {
-			System.out.println("Joueur "+i+" : IA");
-			this.joueurs[i] = new IAJoueur(this,nomsJoueurs[i], nbLocks);
-		}else{
-			System.out.println("Joueur "+i+" : Joueur");
-			this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
-		}
+			if (tabIA[i])
+			{
+				System.out.println("Joueur " + i + " : IA");
+				this.joueurs[i] = new IAJoueur(this, nomsJoueurs[i], nbLocks);
+			} else
+			{
+				System.out.println("Joueur " + i + " : Joueur");
+				this.joueurs[i] = new Joueur(nomsJoueurs[i], nbLocks);
+			}
 
 		this.joueurCourant = 0;
 
 		definirVoisins();
 	}
 
-
-	public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] ia)
+	public Pont(Controleur ctrl, String[] nomsJoueurs, Boolean[] ia)
 	{
-		this(ctrl,nomsJoueurs,ia,
-		(int) (Math.random() * (MAX_LIGNES - MIN_LIGNES)) + MIN_LIGNES,
-		(int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
-		NB_LOCKS_DEFAULT);
+		this(ctrl, nomsJoueurs, ia,
+				(int) (Math.random() * (MAX_LIGNES - MIN_LIGNES)) + MIN_LIGNES,
+				(int) (Math.random() * (MAX_COLONNES - MIN_COLONNES)) + MIN_COLONNES,
+				NB_LOCKS_DEFAULT);
 
 		definirVoisins();
 	}
@@ -80,9 +83,9 @@ public class Pont
 	/* CONSTRUCTEURS avec CONTENEURS */
 	/*-------------------------------*/
 
-	public Pont(Controleur ctrl, String[] nomsJoueurs,Boolean[] ia, Conteneur[][] conteneurs)
+	public Pont(Controleur ctrl, String[] nomsJoueurs, Boolean[] ia, Conteneur[][] conteneurs)
 	{
-		this(ctrl,nomsJoueurs,ia);
+		this(ctrl, nomsJoueurs, ia);
 		this.conteneurs = conteneurs;
 		this.largeur = conteneurs.length;
 		this.hauteur = conteneurs[0].length;
@@ -98,19 +101,19 @@ public class Pont
 	{
 
 		for (int x = 0; x < largeur; x++)
-		for (int y = 0; y < hauteur; y++)
-		{
-			Conteneur c = this.conteneurs[x][y];
+			for (int y = 0; y < hauteur; y++)
+			{
+				Conteneur c = this.conteneurs[x][y];
 
-			if (y > 0           && x > 0          ) c.setVoisin(0, this.conteneurs[x - 1][y - 1]);
-			if (y > 0                             ) c.setVoisin(1, this.conteneurs[x    ][y - 1]);
-			if (y > 0           && x < largeur - 1) c.setVoisin(2, this.conteneurs[x + 1][y - 1]);
-			if (                   x < largeur - 1) c.setVoisin(3, this.conteneurs[x + 1][y    ]);
-			if (y < hauteur - 1 && x < largeur - 1) c.setVoisin(4, this.conteneurs[x + 1][y + 1]);
-			if (y < hauteur - 1                   ) c.setVoisin(5, this.conteneurs[x    ][y + 1]);
-			if (y < hauteur - 1 && x > 0          ) c.setVoisin(6, this.conteneurs[x - 1][y + 1]);
-			if (                   x > 0          ) c.setVoisin(7, this.conteneurs[x - 1][y    ]);
-		}
+				if (y > 0 && x > 0) c.setVoisin(0, this.conteneurs[x - 1][y - 1]);
+				if (y > 0) c.setVoisin(1, this.conteneurs[x][y - 1]);
+				if (y > 0 && x < largeur - 1) c.setVoisin(2, this.conteneurs[x + 1][y - 1]);
+				if (x < largeur - 1) c.setVoisin(3, this.conteneurs[x + 1][y]);
+				if (y < hauteur - 1 && x < largeur - 1) c.setVoisin(4, this.conteneurs[x + 1][y + 1]);
+				if (y < hauteur - 1) c.setVoisin(5, this.conteneurs[x][y + 1]);
+				if (y < hauteur - 1 && x > 0) c.setVoisin(6, this.conteneurs[x - 1][y + 1]);
+				if (x > 0) c.setVoisin(7, this.conteneurs[x - 1][y]);
+			}
 	}
 
 	public int getLargeur()
@@ -132,30 +135,25 @@ public class Pont
 	{
 		// Hors plateau
 		if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
-		return false;
+			return false;
 
 		//Coin coinLibre
-		if(this.conteneurs[x][y].coinLibre(coin))
-		return true;
+		if (this.conteneurs[x][y].coinLibre(coin))
+			return true;
 
 		return false;
 	}
 
-	public boolean placerLock(int x, int y, int coin)
+	public boolean jouer(int x, int y, int coin)
 	{
-		boolean result;
-		Joueur j = this.joueurs[this.joueurCourant];
+		boolean result = simulerCoup(x, y, coin);
 
-		// Hors plateau
-		if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
-		result = false;
-		else
-		result = this.conteneurs[x][y].jouerLock(coin, new Lock(j));
+		Joueur j = this.joueurs[this.joueurCourant];
 
 		j.utiliserLock();
 		// Perdre un lock en cas de jeu incorrect
 		if (!result)
-		j.utiliserLock();
+			j.utiliserLock();
 
 		passerJoueur();
 
@@ -167,7 +165,7 @@ public class Pont
 		this.joueurCourant = (joueurCourant + 1) % this.joueurs.length;
 
 		while (this.joueurs[this.joueurCourant].getNbLocks() == 0 && !partieTerminee())
-		this.joueurCourant = (joueurCourant + 1) % this.joueurs.length;
+			this.joueurCourant = (joueurCourant + 1) % this.joueurs.length;
 	}
 
 	public boolean partieTerminee()
@@ -242,13 +240,13 @@ public class Pont
 		int score = 0;
 
 		for (int x = 0; x < largeur; x++)
-		for (int y = 0; y < hauteur; y++)
-		{
-			Conteneur c = this.conteneurs[x][y];
+			for (int y = 0; y < hauteur; y++)
+			{
+				Conteneur c = this.conteneurs[x][y];
 
-			if (c.joueurMajoritaire() == j)
-			score += c.getValeur();
-		}
+				if (c.joueurMajoritaire() == j)
+					score += c.getValeur();
+			}
 
 		return score;
 	}
@@ -256,8 +254,8 @@ public class Pont
 	public int getNumeroJoueur(Joueur j)
 	{
 		for (int i = 0; i < joueurs.length; i++)
-		if (j == joueurs[i])
-		return i;
+			if (j == joueurs[i])
+				return i;
 
 		return -1;
 	}
@@ -267,57 +265,72 @@ public class Pont
 		return this.joueurs.length;
 	}
 
-	public int getJoueurActif(){return this.joueurCourant;}
+	public int getJoueurActif()
+	{
+		return this.joueurCourant;
+	}
 
 	public void setJoueurActif(int joueur)
 	{
 		this.joueurCourant = joueur;
 	}
 
-	public void faireJouerIA(){
+	public void faireJouerIA()
+	{
 		if (joueurs[this.joueurCourant] instanceof IAJoueur)
-		{	((IAJoueur)joueurs[this.joueurCourant]).jouer();
-			this.ctrl.majIhm();}
-			new Thread(() -> {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		{
+			((IAJoueur) joueurs[this.joueurCourant]).jouer();
+			this.ctrl.majIhm();
+		}
+		new Thread(() ->
+		{
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 
-				if(!this.nouveauTour()){
-					this.ctrl.finPartie();
-				}
-			}).start();
+			if (!this.nouveauTour())
+			{
+				this.ctrl.finPartie();
+			}
+		}).start();
 	}
 
-		public boolean nouveauTour(){
-			if (partieTerminee()) return false;
+	public boolean nouveauTour()
+	{
+		if (partieTerminee()) return false;
 
-			this.faireJouerIA();
-			return true;
-		}
+		this.faireJouerIA();
+		return true;
+	}
 
-		//IA min max
-		public boolean simullerCoup(int x, int y, int coin){
-			boolean result;
-			Joueur j = this.joueurs[this.joueurCourant];
+	//IA min max
+	public boolean simulerCoup(int x, int y, int coin)
+	{
+		boolean result;
+		Joueur j = this.joueurs[this.joueurCourant];
 
-			// Hors plateau
-			if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
+		// Hors plateau
+		if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
 			result = false;
-			else
+		else
 			result = this.conteneurs[x][y].jouerLock(coin, new Lock(j));
-			return result;
-		}
-		public boolean anullerCoup(int x, int y, int coin){
-			// Hors plateau
-			boolean result;
-			if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
-			result = false;
-			else
-			result = this.conteneurs[x][y].annulerLock(coin);
-			return result;
-		}
-
+		return result;
 	}
+
+	public boolean annulerCoup(int x, int y, int coin)
+	{
+		// Hors plateau
+		boolean result;
+		if (x < 0 || x >= largeur || y < 0 || y >= hauteur || coin > 3 || coin < 0)
+			result = false;
+		else
+			result = this.conteneurs[x][y].annulerLock(coin);
+		return result;
+	}
+
+}

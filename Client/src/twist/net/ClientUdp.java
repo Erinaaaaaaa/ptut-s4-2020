@@ -63,7 +63,7 @@ public class ClientUdp
     }
 
 
-    public boolean connecte()
+    public boolean estConnecte()
     {
         return !this.socket.isClosed();
     }

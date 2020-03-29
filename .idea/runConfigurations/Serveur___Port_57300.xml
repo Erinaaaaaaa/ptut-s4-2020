@@ -2,6 +2,7 @@
   <configuration default="false" name="Serveur - Port 57300" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="twist.Serveur" />
     <module name="Serveur" />
+    <option name="PROGRAM_PARAMETERS" value="57300 500" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="twist.net.*" />

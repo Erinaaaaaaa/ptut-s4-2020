@@ -168,7 +168,7 @@ public class ServeurJeu
                         String message = m.getMessage();
                         if (!message.matches("[0-9][A-Z][1-4]"))
                         {
-                            pont.placerLock(-1, -1, -1);
+                            pont.jouer(-1, -1, -1);
                         }
                         else
                         {
@@ -176,7 +176,7 @@ public class ServeurJeu
                             int col = message.charAt(1) - 'A';
                             int coin = message.charAt(2) - '1';
                             Logger.verbose("pont.placerLock("+lig+", "+col+", "+coin+")");
-                            resultat = pont.placerLock(col, lig, coin);
+                            resultat = pont.jouer(col, lig, coin);
                         }
 
                         if (!resultat)
