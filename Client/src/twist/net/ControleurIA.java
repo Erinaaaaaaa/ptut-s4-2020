@@ -42,6 +42,7 @@ public class ControleurIA extends ControleurReseau
   @Override
   public void jouer()
   {
+    try{Thread.spleep(500);}catch(Exception e){}
     int x,y,coin;
 		do {
 		    x = rand( 0, pont.getLargeur()-1 );
