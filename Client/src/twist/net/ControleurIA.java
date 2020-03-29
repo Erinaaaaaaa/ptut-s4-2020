@@ -79,10 +79,10 @@ public class ControleurIA extends ControleurReseau
 					new ControleurIA(host, port, "Goinfre de service", new Goinfre());
 					break;
 				case 4:
-					System.out.print("Niveaux Minimax (2-6, recommandé: 3):");
+					System.out.print("Niveaux Minimax (2-20, recommandé: 3):");
 					int niveaux = sc.nextInt();
-					if (niveaux > 6) niveaux = 6;
-					if (niveaux < 2) niveaux = 2;
+					if (niveaux > 20) niveaux = 20;
+					if (niveaux < 2 ) niveaux = 2 ;
 					new ControleurIA(host, port, "Big brain lv." + niveaux, new Minimax(niveaux));
 					break;
 			}

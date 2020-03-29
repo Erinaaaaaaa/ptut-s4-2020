@@ -23,7 +23,7 @@ public class Minimax implements IA
 				pont.getScoreJoueur(pont.getJoueurActif()) - pont.getScoreJoueur(1 -pont.getJoueurActif()),
 				null, true);
 
-		int niveaux = Integer.min(3, pont.getJoueur(0).getNbLocks() + pont.getJoueur(1).getNbLocks());
+		int niveaux = Integer.min(this.niveaux, pont.getJoueur(0).getNbLocks() + pont.getJoueur(1).getNbLocks());
 
 		// Generation arbre
 		racine.genererEnfants(pont, niveaux);
