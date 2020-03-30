@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact name="ClientMinimax">
+    <output-path>$PROJECT_DIR$/out/artifacts/ClientMinimax</output-path>
+    <root id="root">
+      <element id="archive" name="ClientMinimax.jar">
+        <element id="module-output" name="Client" />
+        <element id="module-output" name="Metier" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/Client/ManifestMinimax/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/Metier/lib/jansi-1.18.jar" />
+    </root>
+  </artifact>
+</component>

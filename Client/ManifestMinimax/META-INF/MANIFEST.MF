@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: twist.net.ControleurIA
+Class-Path: . jansi-1.18.jar
+
