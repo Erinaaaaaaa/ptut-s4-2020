@@ -59,33 +59,7 @@ public class ControleurIA extends ControleurReseau
 			host = sc.nextLine();
 			System.out.print("Port : ");
 			port = sc.nextInt();
-			System.out.println("Choix de l'IA:");
-			System.out.println("1. Aléatoire");
-			System.out.println("2. Heuristique (deux coups aléatoires, le meilleur des deux)");
-			System.out.println("3. Goinfre (le meilleur coup disponible immédiatement)");
-			System.out.println("4. Minimax (Un peu plus intelligent mais le plus lourd)");
-			System.out.print("Votre choix: ");
-			int ia = sc.nextInt();
-
-			switch (ia)
-			{
-				case 1:
-					new ControleurIA(host, port, "Mr. Aléa", new Aleatoire());
-					break;
-				case 2:
-					new ControleurIA(host, port, "Le ristique", new Heuristique());
-					break;
-				case 3:
-					new ControleurIA(host, port, "Goinfre de service", new Goinfre());
-					break;
-				case 4:
-					System.out.print("Niveaux Minimax (2-20, recommandé: 3):");
-					int niveaux = sc.nextInt();
-					if (niveaux > 20) niveaux = 20;
-					if (niveaux < 2 ) niveaux = 2 ;
-					new ControleurIA(host, port, "Big brain lv." + niveaux, new Minimax(niveaux));
-					break;
-			}
+			new ControleurIA(host, port, "Big brain LV.3", new Minimax(3));
 
 
 		}
