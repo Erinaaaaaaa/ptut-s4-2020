@@ -2,10 +2,9 @@ package twist.ihm;
 
 import java.awt.*;
 import java.awt.font.*;
+import java.util.Map;
 
 import javax.swing.*;
-
-import sun.font.AttributeMap;
 import twist.ihm.jeu.PanelJoueur;
 
 public class Apparence
@@ -50,12 +49,13 @@ public class Apparence
         lbl.setForeground(coulJ);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void setStyleTitle(JLabel lbl)
     {
         lbl.setForeground(TABCOULGENERAL[0]);
         lbl.setFont(new Font("Helvetica", Font.BOLD, 50));
         Font font = lbl.getFont();
-        AttributeMap attributes = (AttributeMap) font.getAttributes();
+        Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         lbl.setFont(font.deriveFont(attributes));
     }
