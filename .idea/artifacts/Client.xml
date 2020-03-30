@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact name="Client">
+    <output-path>$PROJECT_DIR$/out/artifacts/Client</output-path>
+    <root id="root">
+      <element id="archive" name="Client.jar">
+        <element id="module-output" name="Client" />
+        <element id="module-output" name="Metier" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/Client/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/Metier/lib/jansi-1.18.jar" />
+    </root>
+  </artifact>
+</component>
