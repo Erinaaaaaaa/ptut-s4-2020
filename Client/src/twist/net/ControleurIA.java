@@ -18,23 +18,14 @@ public class ControleurIA extends ControleurReseau
 {
 	private IA intelligence;
 
-	public ControleurIA(String host, int port, String nom, IA intelligence) throws SocketException, UnknownHostException
+	public ControleurIA(String host, int port, String nom, IA intelligence, boolean hasIhm) throws SocketException, UnknownHostException
 	{
-		super(host, port, nom);
+		super(host, port, nom, hasIhm);
 		this.intelligence = intelligence;
 	}
 
 	public void jouer()
 	{
-		try
-		{
-			Thread.sleep(500);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
 		Coup next = intelligence.next(this.pont);
 
 		this.jouer(next.getColonne(), next.getLigne(), next.getCoin());
@@ -54,12 +45,16 @@ public class ControleurIA extends ControleurReseau
 			Scanner sc = new Scanner(System.in);
 			String host;
 			int port;
+			boolean ihm;
 
 			System.out.print("Host : ");
 			host = sc.nextLine();
 			System.out.print("Port : ");
 			port = sc.nextInt();
-			new ControleurIA(host, port, "Big brain LV.3", new Minimax(3));
+			System.out.print("Ihm? (true/false) ");
+			ihm = sc.nextBoolean();
+
+			new ControleurIA(host, port, "Big brain LV.3", new Minimax(3), ihm);
 
 
 		}

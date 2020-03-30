@@ -21,6 +21,7 @@ public class ControleurReseau extends Controleur
 {
 	protected final ClientUdp client;
 	protected IhmPlateau ihm;
+	protected boolean hasIhm;
 
 	protected final String nomJoueur;
 	protected int indiceJoueurLocal;
@@ -29,8 +30,14 @@ public class ControleurReseau extends Controleur
 
 	public ControleurReseau(String host, int port, String nom) throws SocketException, UnknownHostException
 	{
+		this(host, port, nom, true);
+	}
+
+	public ControleurReseau(String host, int port, String nom, boolean ihm) throws SocketException, UnknownHostException
+	{
 		Logger.information("Connection à " + host + ":" + port + " en tant que " + nom);
 		this.nomJoueur = nom;
+		this.hasIhm = ihm;
 		client = new ClientUdp(host, port);
 		preparer();
 	}
@@ -94,7 +101,8 @@ public class ControleurReseau extends Controleur
 		noms[indiceJoueurLocal] = nomJoueur;
 
 		this.pont = new Pont(this, noms, ia, conteneurs);
-		this.ihm = new IhmPlateau(this);
+		if (hasIhm)
+			this.ihm = new IhmPlateau(this);
 	}
 
 	@Override
@@ -120,17 +128,21 @@ public class ControleurReseau extends Controleur
 	public void jouerLocal(int col, int lig, int coin)
 	{
 		super.jouer(col, lig, coin);
-		majIhm();
+		if (hasIhm)
+			majIhm();
 	}
 
 	public void majIhm()
 	{
-		this.ihm.majIhm();
+		if (hasIhm) this.ihm.majIhm();
 	}
 
 	public void finPartie(String s)
 	{
-		this.ihm.fin(s);
+		if (hasIhm)
+			this.ihm.fin(s);
+		else
+			System.exit(0);
 	}
 
 	public void setJoueurLocalActif()
